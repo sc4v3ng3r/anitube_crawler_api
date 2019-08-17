@@ -9,18 +9,20 @@ part 'network/HomePageFetcher.dart';
 part 'network/PageFetcher.dart';
 part 'network/GenrePageFetcher.dart';
 part 'network/AnimeListPageFetcher.dart';
+part 'network/AnimeDetailsPageFetcher.dart';
 
 part 'parser/HomePageParser.dart';
 part 'parser/GenrePageParser.dart';
 part 'parser/ItemParser.dart';
 part 'parser/AnimeListPageParser.dart';
+part 'parser/AnimeDetailsPageParser.dart';
 
 part 'model/AnimeItem.dart';
 part 'model/HomePageInfo.dart';
 part 'model/AnimeListPageInfo.dart';
 part 'model/EpisodeItem.dart';
 part 'model/Item.dart';
-
+part 'model/AnimeDetails.dart';
 
 class AniTubeApi {
 
@@ -32,6 +34,10 @@ class AniTubeApi {
 
   final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
   final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
+
+  final AnimeDetailsPageFetcher _animeDetailsPageFetcher = AnimeDetailsPageFetcher();
+  final AnimeDetailsPageParser _animeDetailsPageParser = AnimeDetailsPageParser();
+
 
   ///
   Future<HomePageInfo> getHomePageData({int timeout = PageFetcher.TIMEOUT_MS}) async {
@@ -63,6 +69,7 @@ class AniTubeApi {
     return _genrePageParser.getGenresAvailable(page);
   }
 
+
   Future<AnimeListPageInfo> getAnimeListPageData({
     int pageNumber = 1,
     AnimeType animeType = AnimeType.LEGEND,
@@ -79,4 +86,10 @@ class AniTubeApi {
 
   }
 
+  Future<AnimeDetails> getAnimeDetails(String animeId) async {
+    String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId);
+    var detailsData = _animeDetailsPageParser.parseAnimeDetailsPage(page);
+
+    return AnimeDetails.fromJson( detailsData );
+  }
 }

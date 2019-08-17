@@ -5,13 +5,20 @@ import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 void main() async {
   var api = AniTubeApi();
 
-  var pageInfo = await api.getAnimeListPageData(
-    animeType: AnimeType.DUBBED,
-  );
+  var animeDetails = await api.getAnimeDetails("881122");
 
-  print('current page: ${pageInfo.currentPageNumber}');
-  print('total pages: ${pageInfo.maxPageNumber}');
-  pageInfo.animes.forEach( print );
+  print(animeDetails);
+
+//  var pageInfo = await api.getAnimeListPageData(
+//    animeType: AnimeType.DUBBED,
+//  );
+//
+//  print('current page: ${pageInfo.currentPageNumber}');
+//  print('total pages: ${pageInfo.maxPageNumber}');
+//  pageInfo.animes.forEach( print );
+
+
+
 
   //var homePage = await api.getHomePageData();
 //  await api.getGenresAvailable();
