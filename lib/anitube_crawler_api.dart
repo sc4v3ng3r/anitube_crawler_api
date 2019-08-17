@@ -11,6 +11,7 @@ part 'network/GenrePageFetcher.dart';
 
 part 'parser/HomePageParser.dart';
 part 'parser/GenrePageParser.dart';
+part 'parser/ItemParser.dart';
 
 part 'model/AnimeItem.dart';
 part 'model/HomePageInfo.dart';
