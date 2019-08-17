@@ -15,7 +15,7 @@ part 'parser/GenrePageParser.dart';
 part 'model/AnimeItem.dart';
 part 'model/HomePageInfo.dart';
 part 'model/EpisodeItem.dart';
-
+part 'model/Item.dart';
 
 class AniTubeApi {
 

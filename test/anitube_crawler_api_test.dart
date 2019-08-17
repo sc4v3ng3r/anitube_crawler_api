@@ -10,7 +10,8 @@ void main() async {
 
   var homePage = await api.getHomePageData();
   
-  homePage.mostRecentAnimes.forEach( print );
+  homePage.dayReleases.forEach( print );
+
   //homePage.mostRecentAnimes.forEach(print);
 
   //print(data);

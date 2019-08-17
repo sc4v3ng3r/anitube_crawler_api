@@ -1,31 +1,8 @@
 part of anitube_crawler_api;
 
-class EpisodeItem {
+class EpisodeItem extends Item {
 
-  final String id;
-  final String pageUrl;
-  final String imageUrl;
-  final String title;
-  final String closeCaptionType;
+  EpisodeItem.fromJson(Map<String, dynamic> json)
+      : super.fromJson(json);
 
-  static const ID = "id";
-  static const PAGE_URL = "pageUrl";
-  static const IMAGE_URL= "imageUrl";
-  static const TITLE = "title";
-  static const CC = "closeCaption";
-
-  EpisodeItem.fromJson( Map<String, dynamic> json) :
-      id = json[ID],
-      pageUrl = json[PAGE_URL],
-      imageUrl = json[IMAGE_URL],
-      title = json[TITLE],
-      closeCaptionType = json[CC];
-
-  @override
-  String toString() {
-    return
-      "$ID: $id\n$TITLE: $title\n$IMAGE_URL: $imageUrl\n"
-          "$PAGE_URL: $pageUrl\n"
-          "$CC: $closeCaptionType";
-  }
 }

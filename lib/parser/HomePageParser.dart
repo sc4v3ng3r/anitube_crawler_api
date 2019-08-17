@@ -23,24 +23,27 @@ class HomePageParser {
 
       aniItemList.forEach( (aniItem){
         var pageLink = aniItem.children[0].attributes['href'];
-        var title = aniItem.children[0].attributes['title'].split('–')[0];
+        var title = aniItem.children[0].attributes['title'];//.split('–')[0];
         var id = pageLink.split('.site/')[1];
 
         id = id.substring(0, id.length-1);
 
         var itemImgDiv = aniItem.children[0]
+            // imagem item class changes
             .getElementsByClassName(_HomePageHtmlNames.ANI_ITEM_IMG)[0];
 
         var imageUrl = itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
+
+        // cc class changes
         var cc = itemImgDiv.getElementsByClassName(_HomePageHtmlNames.ANI_CC)
           [0].text;
 
         dataList.add( {
-          AnimeItem.ID : id,
-          AnimeItem.TITLE : title,
-          AnimeItem.PAGE_URL : pageLink,
-          AnimeItem.IMAGE_URL : imageUrl,
-          AnimeItem.CC : cc,
+          Item.ID : id,
+          Item.TITLE : title,
+          Item.PAGE_URL : pageLink,
+          Item.IMAGE_URL : imageUrl,
+          Item.CC : cc,
         } );
 
       }  );
@@ -63,6 +66,7 @@ class HomePageParser {
     //print('subcontainer children ${subContainer.children.length}');
     
     subContainer.children.forEach( (epiItem){
+
       var pageLink = epiItem.children[0].attributes['href'];
       var title = epiItem.children[0].attributes['title'];
       var id = pageLink.split('.site/')[1];
@@ -78,11 +82,11 @@ class HomePageParser {
 
 
       dataList.add( {
-        EpisodeItem.ID : id,
-        EpisodeItem.TITLE : title,
-        EpisodeItem.PAGE_URL : pageLink,
-        EpisodeItem.IMAGE_URL : imageUrl,
-        EpisodeItem.CC : cc,
+        Item.ID : id,
+        Item.TITLE : title,
+        Item.PAGE_URL : pageLink,
+        Item.IMAGE_URL : imageUrl,
+        Item.CC : cc,
       } );
     } );
     
