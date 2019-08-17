@@ -16,12 +16,12 @@ class HomePageParser {
 
       // most recents aniItems
       var aniItemList = containers[ category.index ].children[1]
-          .getElementsByClassName(_HomePageHtmlNames.ANI_ITEM);
+          .getElementsByClassName(ItemParser.ANI_ITEM);
 
       aniItemList.forEach( (aniItem){
 
         dataList.add( ItemParser.parseItem(aniItem,
-            _HomePageHtmlNames.ANI_ITEM_IMG, _HomePageHtmlNames.ANI_CC)
+            ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC)
         );
 
       });
@@ -44,8 +44,8 @@ class HomePageParser {
     subContainer.children.forEach( (epiItem){
 
       dataList.add(
-          ItemParser.parseItem(epiItem,_HomePageHtmlNames.EPI_ITEM_IMG,
-              _HomePageHtmlNames.EPI_CC)
+          ItemParser.parseItem(epiItem,ItemParser.EPI_ITEM_IMG,
+              ItemParser.EPI_CC)
       );
     });
     
@@ -72,11 +72,7 @@ class _HomePageHtmlNames {
   static const MAIN_CAROUSEL = "main-carousel"; // class
   static const FLICK_SLIDER = "flickity-slider"; // class
   static const FLICKITY_VIEWPORT = "flickity-viewport";// class
-  static const ANI_ITEM = "aniItem"; // class
-  static const ANI_ITEM_IMG = "aniItemImg";
-  static const EPI_ITEM_IMG = "epiItemImg";
-  static const ANI_CC = "aniCC";
-  static const EPI_CC = "epiCC";
+
   static const EPI_CONTAINER = "epiContainer";
   static const EPI_SUBCONTAINER = "epiSubContainer";
 

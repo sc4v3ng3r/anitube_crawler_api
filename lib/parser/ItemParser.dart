@@ -1,7 +1,13 @@
 part of anitube_crawler_api;
 
 class ItemParser {
-  
+
+  static const ANI_ITEM = "aniItem"; // class
+  static const ANI_ITEM_IMG = "aniItemImg";
+  static const EPI_ITEM_IMG = "epiItemImg";
+  static const ANI_CC = "aniCC";
+  static const EPI_CC = "epiCC";
+
   static Map<String, dynamic> parseItem(Element itemElement, String divImageClassName,
       String closedCaptionClassName) {
     

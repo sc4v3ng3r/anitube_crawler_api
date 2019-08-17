@@ -8,15 +8,19 @@ part 'network/AnitubePath.dart';
 part 'network/HomePageFetcher.dart';
 part 'network/PageFetcher.dart';
 part 'network/GenrePageFetcher.dart';
+part 'network/AnimeListPageFetcher.dart';
 
 part 'parser/HomePageParser.dart';
 part 'parser/GenrePageParser.dart';
 part 'parser/ItemParser.dart';
+part 'parser/AnimeListPageParser.dart';
 
 part 'model/AnimeItem.dart';
 part 'model/HomePageInfo.dart';
+part 'model/AnimeListPageInfo.dart';
 part 'model/EpisodeItem.dart';
 part 'model/Item.dart';
+
 
 class AniTubeApi {
 
@@ -25,6 +29,9 @@ class AniTubeApi {
 
   final GenrePageFetcher _genrePageFetcher = GenrePageFetcher();
   final GenrePageParser _genrePageParser = GenrePageParser();
+
+  final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
+  final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
 
   ///
   Future<HomePageInfo> getHomePageData({int timeout = PageFetcher.TIMEOUT_MS}) async {
@@ -55,4 +62,21 @@ class AniTubeApi {
 
     return _genrePageParser.getGenresAvailable(page);
   }
+
+  Future<AnimeListPageInfo> getAnimeListPageData({
+    int pageNumber = 1,
+    AnimeType animeType = AnimeType.LEGEND,
+    int timeout = PageFetcher.TIMEOUT_MS
+  }) async {
+    var page = await _animeListPageFetcher.fetchAnimeListPage(
+      animeType: animeType,
+      timeout: timeout,
+      pageNumber: pageNumber,
+    );
+
+    Map<String,dynamic> pageInfoMap = _animeListPageParser.parseAnimeListPage(page);
+    return AnimeListPageInfo.fromJson( pageInfoMap );
+
+  }
+
 }
