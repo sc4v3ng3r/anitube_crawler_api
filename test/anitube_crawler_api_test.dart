@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 
 void main() async {
+
   var api = AniTubeApi();
+  //var animeDetails = await api.getAnimeDetails("881122");
+  //print(animeDetails);
 
-  var animeDetails = await api.getAnimeDetails("881122");
-
-  print(animeDetails);
-
+  
+  await api.getEpisodeDetails('881141');
 //  var pageInfo = await api.getAnimeListPageData(
 //    animeType: AnimeType.DUBBED,
 //  );
