@@ -13,4 +13,5 @@ class AnitubePath {
   static const ANIME_LIST_PAGE_LEGEND =
       BASE_PATH + "lista-de-animes-legendados/" + PAGE;
 
+  static const QUERY_LETTER = '?letra=';
 }

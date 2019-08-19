@@ -1,4 +1,5 @@
 part of anitube_crawler_api;
+
 enum AnimeType {LEGEND, DUBBED}
 
 class AnimeListPageFetcher extends PageFetcher {
@@ -8,6 +9,7 @@ class AnimeListPageFetcher extends PageFetcher {
   Future<String> fetchAnimeListPage({
     AnimeType animeType = AnimeType.LEGEND,
     int pageNumber = 1,
+    String startWith = '',
     int timeout = PageFetcher.TIMEOUT_MS}) async {
 
     String page;
@@ -19,6 +21,10 @@ class AnimeListPageFetcher extends PageFetcher {
 
     if (animeType == AnimeType.DUBBED)
       path = AnitubePath.ANIME_LIST_PAGE_DUBBED + "$pageNumber";
+
+
+    if (startWith.isNotEmpty)
+      path = path + '/${AnitubePath.QUERY_LETTER}${startWith[0]}';
 
     try {
       Response response = await dio.get(path,

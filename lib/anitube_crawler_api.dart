@@ -75,11 +75,13 @@ class AniTubeApi {
 
   Future<AnimeListPageInfo> getAnimeListPageData({
     int pageNumber = 1,
+    String startWith = '',
     AnimeType animeType = AnimeType.LEGEND,
     int timeout = PageFetcher.TIMEOUT_MS
   }) async {
     var page = await _animeListPageFetcher.fetchAnimeListPage(
       animeType: animeType,
+      startWith: startWith,
       timeout: timeout,
       pageNumber: pageNumber,
     );
