@@ -1,5 +1,9 @@
 part of anitube_crawler_api;
 
+/// This class holds read only details information
+/// about a specific anime. All these information are
+/// provided by animetube.site brazilian website and some of
+/// them could be wrong or even not available.
 class AnimeDetails {
 
   static const TITLE = "titulo";
@@ -17,37 +21,49 @@ class AnimeDetails {
   static const OVAS = "Ovas";
   static const MOVIES = "Filmes";
 
+  /// The data json map.
   final Map<String, dynamic> _data;
+
+  /// The list of anime episode Items.
   final List<EpisodeItem> _episodes;
 
+  /// The anime title
   String get title => _data[TITLE];
-  
+  /// The anime author
   String get author => _data[AUTHOR];
   
   String get format => _data[FORMAT];
-  
+  /// A String with the anime genres.
   String get genre => _data[GENRE];
-  
+
+  /// The anime director
   String get director => _data[DIRECTOR];
-  
+
+  /// Anime closed caption type. Can be dubbed OR legend.
   String get closedCaption => _data[CC];
-  
+
+  /// The a studio that produces this anime.
   String get studio => _data[STUDIO];
-  
+
+  /// Anime cover image Url.
   String get imageUrl => _data[IMAGE_URL];
 
+  /// The anime year
   String get year => _data[YEAR];
 
+  /// Anime movies Url
   String get movies => _data[MOVIES];
 
   String get ovas => _data[OVAS];
 
+  /// The anime resume or synopsis
   String get resume => _data[DESCRIPTION];
 
+  /// The number of episodes
   String get episodesNumber => _data[EPISODES_NUMBER];
 
+  /// The list of episode available for this anime.
   List<EpisodeItem> get episodes => _episodes;
-
 
   AnimeDetails.fromJson(Map<String, dynamic> json) :
       _data = json,

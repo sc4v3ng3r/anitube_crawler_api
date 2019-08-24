@@ -1,5 +1,8 @@
 part of anitube_crawler_api;
 
+/// This class holds read only info about an episode. All
+/// the information are provided by animetube.site brazilian website
+/// and some of them infos can be wrong or even unavailable.
 class EpisodeDetails {
 
   static const TITLE = "title";
@@ -8,10 +11,18 @@ class EpisodeDetails {
   static const NEXT = "next";
   static const DESCRIPTION = "description";
 
+  /// The episode title.
   final String title;
+
+  /// Episode video stream url.
   final String streamingUrl;
+
+  /// Nrevious episode Id if existent.
   final String previousEpisodeId;
+  /// Next episode Id if existent.
   final String nextEpisodeId;
+
+  /// Episode description
   final String description;
 
   EpisodeDetails.fromJson( Map<String, dynamic> json ) :

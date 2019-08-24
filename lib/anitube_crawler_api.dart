@@ -27,6 +27,10 @@ part 'model/Item.dart';
 part 'model/AnimeDetails.dart';
 part 'model/EpisodeDetails.dart';
 
+///
+/// AniTubeApi is a API which allows you fetch data from
+/// animetube.site brazilian anime website.
+///
 class AniTubeApi {
 
   final HomePageFetcher _homePageFetcher = HomePageFetcher();
@@ -44,7 +48,11 @@ class AniTubeApi {
   final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher = EpisodeDetailsPageFetcher();
   final EpisodeDetailsPageParser _episodeDetailsPageParser = EpisodeDetailsPageParser();
 
+  /// This method fetch the animetube.site website home page with all
+  /// info available. It returns a HomePageInfo object with the data
+  /// and info available on website home page .
   ///
+  /// [timeout] : The request timeout limit in ms.
   Future<HomePageInfo> getHomePageData({int timeout = PageFetcher.TIMEOUT_MS}) async {
     
     String page = await _homePageFetcher.fetchHomePage(timeout: timeout);
@@ -65,7 +73,8 @@ class AniTubeApi {
         latestEpisodes, dayReleases);
   }
 
-  ///
+  /// This method fetches a list of all genres available
+  /// animetube.site website.
   Future<List<String>> getGenresAvailable(
       {int timeout = PageFetcher.TIMEOUT_MS} ) async {
     String page = await _genrePageFetcher.getGenrePage(timeout: timeout);
@@ -73,6 +82,15 @@ class AniTubeApi {
     return _genrePageParser.getGenresAvailable(page);
   }
 
+  /// This method returns the data available on anime list page
+  /// from animetube.site website. It returns an AnimeListPageInfo object
+  /// instance will data and info on that page.
+  /// [pageNumber] : The number of animes page.
+  /// [startWith] : A query param to returns only animes that start
+  /// with specified letter. The default value is an empty string.
+  /// [animeType] : The type of animes to be returned. Can be DUBBED or LEGEND. The
+  /// default values is LEGEND.
+  /// [timeout] : The request timeout limit in ms.
   Future<AnimeListPageInfo> getAnimeListPageData({
     int pageNumber = 1,
     String startWith = '',
@@ -90,6 +108,9 @@ class AniTubeApi {
     return AnimeListPageInfo.fromJson( pageInfoMap );
   }
 
+  /// This methods returns details about an specified anime.
+  /// It returns a AnimeDetails object instance.
+  /// [animeId] : The anime id to get details info.
   Future<AnimeDetails> getAnimeDetails(String animeId) async {
     String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId);
 
@@ -97,6 +118,10 @@ class AniTubeApi {
     return AnimeDetails.fromJson( detailsData );
   }
 
+  /// This methods returns details about an specified Episode like
+  /// streaming url.
+  /// It returns a EpisodeDetails object instance.
+  /// [episodeId] : The episode id to get details info.
   Future<EpisodeDetails> getEpisodeDetails(String episodeId) async {
     String page = await _episodeDetailsPageFetcher.getEpisodePage(episodeId);
 

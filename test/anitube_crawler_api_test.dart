@@ -10,14 +10,18 @@ void main() async {
   
   //await api.getEpisodeDetails('881141');
 
-  var d = await api.getAnimeListPageData(
-    startWith: 'p',
-    animeType: AnimeType.DUBBED
-  );
+//  var d = await api.getAnimeListPageData(
+//    startWith: 'p',
+//    animeType: AnimeType.DUBBED
+//  );
+//
+//  d.animes.forEach(  print );
 
-  d.animes.forEach(  print );
-  print('PAGES ${d.maxPageNumber}');
+  //print('PAGES ${d.maxPageNumber}');
 
+  var data = await api.getHomePageData();
+
+  data.latestEpisodes.forEach( print );
 //  var pageInfo = await api.getAnimeListPageData(
 //    animeType: AnimeType.DUBBED,
 //  );
