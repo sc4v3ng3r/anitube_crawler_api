@@ -2,7 +2,7 @@ name: anitube_crawler_api
 description: Anitube website crawler API
 version: 0.1.0
 author: Marcos Boaventura <scavenger.gnu@gmail.com>
-homepage: https://github.com/sc4v3ng3r
+homepage: https://github.com/sc4v3ng3r/anitube_crawler_api
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
