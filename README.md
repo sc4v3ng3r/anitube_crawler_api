@@ -1,14 +1,19 @@
 # anitube_crawler_api
 
-Anitube website crawler API
+Anitube website crawler API. This dart package is a simple library to fetch animes and episodes data from the brazilian [Anitube](https://www.anitube.site) website. 
+For now the goal of this package is just be a study object and will be used in my flutter course Building Hybrid mobile apps with Dart/Flutter.
 
-## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Features
+- Fetch the most recent episode posts
+- Fetch the most recent anime posts
+- Fetch the most visualized animes
+- Fetch the daily releases
+- Fetch animes genres available
+- Fetch anime details with episode list
+- Fetch episodes details with video stream link
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+
+## Usage
+-------------------------------------------------
+## The API
