@@ -32,7 +32,6 @@ part 'model/EpisodeDetails.dart';
 /// animetube.site brazilian anime website.
 ///
 class AniTubeApi {
-
   final HomePageFetcher _homePageFetcher = HomePageFetcher();
   final HomePageParser _homePageParser = HomePageParser();
 
@@ -42,41 +41,53 @@ class AniTubeApi {
   final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
   final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
 
-  final AnimeDetailsPageFetcher _animeDetailsPageFetcher = AnimeDetailsPageFetcher();
-  final AnimeDetailsPageParser _animeDetailsPageParser = AnimeDetailsPageParser();
+  final AnimeDetailsPageFetcher _animeDetailsPageFetcher =
+      AnimeDetailsPageFetcher();
+  final AnimeDetailsPageParser _animeDetailsPageParser =
+      AnimeDetailsPageParser();
 
-  final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher = EpisodeDetailsPageFetcher();
-  final EpisodeDetailsPageParser _episodeDetailsPageParser = EpisodeDetailsPageParser();
+  final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher =
+      EpisodeDetailsPageFetcher();
+  final EpisodeDetailsPageParser _episodeDetailsPageParser =
+      EpisodeDetailsPageParser();
 
   /// This method fetch the animetube.site website home page with all
   /// info available. It returns a HomePageInfo object with the data
   /// and info available on website home page .
   ///
   /// [timeout] : The request timeout limit in ms.
-  Future<HomePageInfo> getHomePageData({int timeout = PageFetcher.TIMEOUT_MS}) async {
-    
+  Future<HomePageInfo> getHomePageData(
+      {int timeout = PageFetcher.TIMEOUT_MS}) async {
     String page = await _homePageFetcher.fetchHomePage(timeout: timeout);
 
-    var latestEpisodes = _homePageParser.extractLatestEpisodes(page)
-        .map( (json) => EpisodeItem.fromJson(json) ).toList();
+    var latestEpisodes = _homePageParser
+        .extractLatestEpisodes(page)
+        .map((json) => EpisodeItem.fromJson(json))
+        .toList();
 
-    var mostRecentAnimesList = _homePageParser.extractRecentAnimes(page)
-        .map( (json) => AnimeItem.fromJson(json) ).toList();
+    var mostRecentAnimesList = _homePageParser
+        .extractRecentAnimes(page)
+        .map((json) => AnimeItem.fromJson(json))
+        .toList();
 
-    var mostShowedAnimes = _homePageParser.extractMostShowedAnimes(page)
-        .map( (json) => AnimeItem.fromJson(json) ).toList();
+    var mostShowedAnimes = _homePageParser
+        .extractMostShowedAnimes(page)
+        .map((json) => AnimeItem.fromJson(json))
+        .toList();
 
-    var dayReleases = _homePageParser.extractDayRelease(page)
-      .map( (json) => AnimeItem.fromJson(json) ).toList();
+    var dayReleases = _homePageParser
+        .extractDayRelease(page)
+        .map((json) => AnimeItem.fromJson(json))
+        .toList();
 
-    return HomePageInfo(mostRecentAnimesList, mostShowedAnimes,
-        latestEpisodes, dayReleases);
+    return HomePageInfo(
+        mostRecentAnimesList, mostShowedAnimes, latestEpisodes, dayReleases);
   }
 
   /// This method fetches a list of all genres available
   /// animetube.site website.
   Future<List<String>> getGenresAvailable(
-      {int timeout = PageFetcher.TIMEOUT_MS} ) async {
+      {int timeout = PageFetcher.TIMEOUT_MS}) async {
     String page = await _genrePageFetcher.getGenrePage(timeout: timeout);
 
     return _genrePageParser.getGenresAvailable(page);
@@ -91,12 +102,11 @@ class AniTubeApi {
   /// [animeType] : The type of animes to be returned. Can be DUBBED or LEGEND. The
   /// default values is LEGEND.
   /// [timeout] : The request timeout limit in ms.
-  Future<AnimeListPageInfo> getAnimeListPageData({
-    int pageNumber = 1,
-    String startWith = '',
-    AnimeType animeType = AnimeType.LEGEND,
-    int timeout = PageFetcher.TIMEOUT_MS
-  }) async {
+  Future<AnimeListPageInfo> getAnimeListPageData(
+      {int pageNumber = 1,
+      String startWith = '',
+      AnimeType animeType = AnimeType.LEGEND,
+      int timeout = PageFetcher.TIMEOUT_MS}) async {
     var page = await _animeListPageFetcher.fetchAnimeListPage(
       animeType: animeType,
       startWith: startWith,
@@ -104,8 +114,9 @@ class AniTubeApi {
       pageNumber: pageNumber,
     );
 
-    Map<String,dynamic> pageInfoMap = _animeListPageParser.parseAnimeListPage(page);
-    return AnimeListPageInfo.fromJson( pageInfoMap );
+    Map<String, dynamic> pageInfoMap =
+        _animeListPageParser.parseAnimeListPage(page);
+    return AnimeListPageInfo.fromJson(pageInfoMap);
   }
 
   /// This methods returns details about an specified anime.
@@ -115,7 +126,7 @@ class AniTubeApi {
     String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId);
 
     var detailsData = _animeDetailsPageParser.parseAnimeDetailsPage(page);
-    return AnimeDetails.fromJson( detailsData );
+    return AnimeDetails.fromJson(detailsData);
   }
 
   /// This methods returns details about an specified Episode like
@@ -127,6 +138,5 @@ class AniTubeApi {
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
     return EpisodeDetails.fromJson(jsonData);
-
   }
 }

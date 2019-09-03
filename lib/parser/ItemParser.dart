@@ -1,37 +1,35 @@
 part of anitube_crawler_api;
 
 class ItemParser {
-
   static const ANI_ITEM = "aniItem"; // class
   static const ANI_ITEM_IMG = "aniItemImg";
   static const EPI_ITEM_IMG = "epiItemImg";
   static const ANI_CC = "aniCC";
   static const EPI_CC = "epiCC";
 
-  static Map<String, dynamic> parseItem(Element itemElement, String divImageClassName,
-      String closedCaptionClassName) {
-    
+  static Map<String, dynamic> parseItem(Element itemElement,
+      String divImageClassName, String closedCaptionClassName) {
     var pageLink = itemElement.children[0].attributes['href'];
-        var title = itemElement.children[0].attributes['title'];
-        var id = pageLink.split('.site/')[1];
+    var title = itemElement.children[0].attributes['title'];
+    var id = pageLink.split('.site/')[1];
 
-        id = id.substring(0, id.length-1);
+    id = id.substring(0, id.length - 1);
 
-        var itemImgDiv = itemElement.children[0]
+    var itemImgDiv = itemElement.children[0]
         //divImageClassName
         .getElementsByClassName(divImageClassName)[0];
 
-        var imageUrl = itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
-        /// closedCaptionClassName
-        var cc = itemImgDiv.getElementsByClassName(closedCaptionClassName)
-          [0].text;
+    var imageUrl = itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
+
+    /// closedCaptionClassName
+    var cc = itemImgDiv.getElementsByClassName(closedCaptionClassName)[0].text;
 
     return {
-      Item.ID : id,
-      Item.TITLE : title,
-      Item.PAGE_URL : pageLink,
-      Item.IMAGE_URL : imageUrl,
-      Item.CC : cc,
+      Item.ID: id,
+      Item.TITLE: title,
+      Item.PAGE_URL: pageLink,
+      Item.IMAGE_URL: imageUrl,
+      Item.CC: cc,
     };
   }
 }

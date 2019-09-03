@@ -5,7 +5,6 @@ part of anitube_crawler_api;
 /// provided by animetube.site brazilian website and some of
 /// them could be wrong or even not available.
 class AnimeDetails {
-
   static const TITLE = "titulo";
   static const AUTHOR = "Autor";
   static const FORMAT = "Formato";
@@ -29,10 +28,12 @@ class AnimeDetails {
 
   /// The anime title
   String get title => _data[TITLE];
+
   /// The anime author
   String get author => _data[AUTHOR];
-  
+
   String get format => _data[FORMAT];
+
   /// A String with the anime genres.
   String get genre => _data[GENRE];
 
@@ -65,26 +66,25 @@ class AnimeDetails {
   /// The list of episode available for this anime.
   List<EpisodeItem> get episodes => _episodes;
 
-  AnimeDetails.fromJson(Map<String, dynamic> json) :
-      _data = json,
-      _episodes = List.from( json[EPISODES_LIST] ).map<EpisodeItem>(
-              (epJson) => EpisodeItem.fromJson(epJson)
-      ).toList();
+  AnimeDetails.fromJson(Map<String, dynamic> json)
+      : _data = json,
+        _episodes = List.from(json[EPISODES_LIST])
+            .map<EpisodeItem>((epJson) => EpisodeItem.fromJson(epJson))
+            .toList();
 
   @override
-  String toString() =>
-      "$TITLE: $title\n"
-          "$EPISODES_NUMBER: $episodesNumber\n"
-          "$AUTHOR: $author\n"
-          "$DIRECTOR: $director\n"
-          "$STUDIO: $studio\n"
-          "$FORMAT: $format\n"
-          "$GENRE: $genre\n"
-          "$CC: $closedCaption\n"
-          "$YEAR: $year\n"
-          "$IMAGE_URL: $imageUrl\n"
-          "$DESCRIPTION: $resume\n"
-          "$EPISODES_LIST: $episodes\n"
-          "$MOVIES: $movies\n"
-          "$OVAS: $ovas\n";
+  String toString() => "$TITLE: $title\n"
+      "$EPISODES_NUMBER: $episodesNumber\n"
+      "$AUTHOR: $author\n"
+      "$DIRECTOR: $director\n"
+      "$STUDIO: $studio\n"
+      "$FORMAT: $format\n"
+      "$GENRE: $genre\n"
+      "$CC: $closedCaption\n"
+      "$YEAR: $year\n"
+      "$IMAGE_URL: $imageUrl\n"
+      "$DESCRIPTION: $resume\n"
+      "$EPISODES_LIST: $episodes\n"
+      "$MOVIES: $movies\n"
+      "$OVAS: $ovas\n";
 }

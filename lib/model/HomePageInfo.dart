@@ -5,7 +5,6 @@ part of anitube_crawler_api;
 /// the animes more visualized, the latest episodes and the
 /// releases of the day.
 class HomePageInfo {
-
   /// The Most recent animes.
   final List<AnimeItem> mostRecentAnimes;
 
@@ -20,5 +19,4 @@ class HomePageInfo {
 
   HomePageInfo(this.mostRecentAnimes, this.mostShowedAnimes,
       this.latestEpisodes, this.dayReleases);
-  
 }

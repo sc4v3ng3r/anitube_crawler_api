@@ -1,7 +1,6 @@
 part of anitube_crawler_api;
 
 class GenrePageFetcher extends PageFetcher {
-
   Future<String> getGenrePage({int timeout = PageFetcher.TIMEOUT_MS}) async {
     String page = "";
 
@@ -13,9 +12,7 @@ class GenrePageFetcher extends PageFetcher {
             connectTimeout: timeout,
           ));
       page = resp.data;
-    }
-
-    catch (ex){
+    } catch (ex) {
       print('GenrePageFetcher::getGenrePage $ex');
     }
 

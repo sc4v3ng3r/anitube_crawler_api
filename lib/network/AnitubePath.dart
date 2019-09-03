@@ -1,7 +1,6 @@
 part of anitube_crawler_api;
 
 class AnitubePath {
-
   static const BASE_PATH = "https://www.anitube.site/";
   static const PAGE = "page/";
   static const HOME_PAGE = BASE_PATH;
