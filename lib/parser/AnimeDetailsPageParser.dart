@@ -3,55 +3,62 @@ part of anitube_crawler_api;
 class AnimeDetailsPageParser {
   Map<String, dynamic> parseAnimeDetailsPage(String page) {
     if (page != null || page.isNotEmpty) {
-      Document doc = parse(page);
-      var body = doc.getElementsByTagName('body')[0];
+      try {
+        Document doc = parse(page);
+        var body = doc.getElementsByTagName('body')[0];
 
-      var animeTitle = _parseAnimeTitle(body);
-      var imageUrl = doc
-          .getElementById(_AnimeDetailsPageNames.ID_ANIME_COVER)
-          .children[0]
-          .attributes['src'];
+        var animeTitle = _parseAnimeTitle(body);
+        var imageUrl = doc
+            .getElementById(_AnimeDetailsPageNames.ID_ANIME_COVER)
+            .children[0]
+            .attributes['src'];
 
-      var resume = doc.getElementById(_AnimeDetailsPageNames.ID_RESUME).text;
-      var infoBox = body
-          .getElementsByClassName(_AnimeDetailsPageNames.ANIME_BOX_ABOUT_IT)[0];
+        var resume = doc.getElementById(_AnimeDetailsPageNames.ID_RESUME).text;
+        var infoBox = body.getElementsByClassName(
+            _AnimeDetailsPageNames.ANIME_BOX_ABOUT_IT)[0];
 
-      var infoMap = _parseAnimeInfo(infoBox);
+        var infoMap = _parseAnimeInfo(infoBox);
 
-      var container = body.getElementsByClassName(
-          _AnimeDetailsPageNames.ANIME_EPISODES_CONTAINER);
+        var container = body.getElementsByClassName(
+            _AnimeDetailsPageNames.ANIME_EPISODES_CONTAINER);
 
-      // The first container is the episode containers
-      // some titles has OVAS and MOVIES containers too.
-      // but for now let's get only the episodes.
-      var episodesItemList =
-          container[0].children.map<Map<String, dynamic>>((anchor) {
-        var id = anchor.attributes['href'].split(AnitubePath.BASE_PATH).last;
+        // The first container is the episode containers
+        // some titles has OVAS and MOVIES containers too.
+        // but for now let's get only the episodes.
+        var episodesItemList =
+            container[0].children.map<Map<String, dynamic>>((anchor) {
+          var id = anchor.attributes['href'].split(AnitubePath.BASE_PATH).last;
+          return {
+            Item.ID: id.substring(0, id.length - 1),
+            Item.TITLE: anchor.attributes['title'],
+            Item.PAGE_URL: anchor.attributes['href'],
+            Item.IMAGE_URL: imageUrl,
+            Item.CC: infoMap[AnimeDetails.CC] ?? '',
+          };
+        }).toList();
+
         return {
-          Item.ID: id.substring(0, id.length - 1),
-          Item.TITLE: anchor.attributes['title'],
-          Item.PAGE_URL: anchor.attributes['href'],
-          Item.IMAGE_URL: imageUrl,
-          Item.CC: infoMap[AnimeDetails.CC] ?? '',
+          AnimeDetails.TITLE: animeTitle,
+          AnimeDetails.IMAGE_URL: imageUrl,
+          AnimeDetails.DESCRIPTION: resume ?? "",
+          AnimeDetails.EPISODES_LIST: episodesItemList,
+          AnimeDetails.EPISODES_NUMBER:
+              episodesItemList?.length.toString() ?? "",
+          AnimeDetails.FORMAT: infoMap[AnimeDetails.FORMAT] ?? "",
+          AnimeDetails.DIRECTOR: infoMap[AnimeDetails.DIRECTOR] ?? "",
+          AnimeDetails.STUDIO: infoMap[AnimeDetails.STUDIO] ?? "",
+          AnimeDetails.GENRE: infoMap[AnimeDetails.GENRE] ?? "",
+          AnimeDetails.AUTHOR: infoMap[AnimeDetails.AUTHOR] ?? "",
+          AnimeDetails.CC: infoMap[AnimeDetails.CC] ?? "",
+          AnimeDetails.YEAR: infoMap[AnimeDetails.YEAR] ?? "",
+          AnimeDetails.MOVIES: infoMap[AnimeDetails.MOVIES] ?? "",
+          AnimeDetails.OVAS: infoMap[AnimeDetails.OVAS] ?? "",
         };
-      }).toList();
-
-      return {
-        AnimeDetails.TITLE: animeTitle,
-        AnimeDetails.IMAGE_URL: imageUrl,
-        AnimeDetails.DESCRIPTION: resume ?? "",
-        AnimeDetails.EPISODES_LIST: episodesItemList,
-        AnimeDetails.EPISODES_NUMBER: episodesItemList?.length.toString() ?? "",
-        AnimeDetails.FORMAT: infoMap[AnimeDetails.FORMAT] ?? "",
-        AnimeDetails.DIRECTOR: infoMap[AnimeDetails.DIRECTOR] ?? "",
-        AnimeDetails.STUDIO: infoMap[AnimeDetails.STUDIO] ?? "",
-        AnimeDetails.GENRE: infoMap[AnimeDetails.GENRE] ?? "",
-        AnimeDetails.AUTHOR: infoMap[AnimeDetails.AUTHOR] ?? "",
-        AnimeDetails.CC: infoMap[AnimeDetails.CC] ?? "",
-        AnimeDetails.YEAR: infoMap[AnimeDetails.YEAR] ?? "",
-        AnimeDetails.MOVIES: infoMap[AnimeDetails.MOVIES] ?? "",
-        AnimeDetails.OVAS: infoMap[AnimeDetails.OVAS] ?? "",
-      };
+      } catch (ex) {
+        print( "AnimeDetailsPageParser\n$ex");
+        throw ParserException(
+            message: "Error parsing anime details page.");
+      }
     }
 
     return {};

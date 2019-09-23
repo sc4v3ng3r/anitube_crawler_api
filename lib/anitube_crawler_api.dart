@@ -1,5 +1,6 @@
 library anitube_crawler_api;
 
+import 'package:anitube_crawler_api/exception/CrawlerApiException.dart';
 import 'package:dio/dio.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
@@ -138,5 +139,22 @@ class AniTubeApi {
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
     return EpisodeDetails.fromJson(jsonData);
+  }
+
+  /// This method do the search by animes matching [query] param.
+  /// Query param can be anime name, part of the name or a genre name.
+  /// [query] The search query. Can't be null.
+  /// [timeout] The time out limit on miliseconds. The default time is 8 seconds
+  /// or 8000 miliseconds.
+  /// [pageNumber] The anitube site page number to load.
+  Future<AnimeListPageInfo> search(String query,
+  {int pageNumber = 1, int timeout = PageFetcher.TIMEOUT_MS}) async {
+
+    String page = await _animeListPageFetcher.search(query,
+        pageNumber: pageNumber, timeout: timeout);
+
+    var data = _animeListPageParser.parseAnimeListPage(page, isSearch: true);
+    return AnimeListPageInfo.fromJson(data);
+
   }
 }

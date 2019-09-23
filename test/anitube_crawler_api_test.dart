@@ -1,4 +1,3 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 
 void main() async {
@@ -19,9 +18,16 @@ void main() async {
 
   //print('PAGES ${d.maxPageNumber}');
 
-  var data = await api.getHomePageData();
+//  var data = await api.getHomePageData();
+//  data.latestEpisodes.forEach( print );
+//
 
-  data.latestEpisodes.forEach( print );
+  var data = await api.search(' ',);
+
+  print('Number of pages ${data.maxPageNumber}');
+  print('Animes number: ${data.animes.length}');
+  data.animes.forEach(  print );
+
 //  var pageInfo = await api.getAnimeListPageData(
 //    animeType: AnimeType.DUBBED,
 //  );

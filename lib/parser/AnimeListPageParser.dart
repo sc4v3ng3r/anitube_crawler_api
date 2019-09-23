@@ -1,10 +1,13 @@
 part of anitube_crawler_api;
 
 class AnimeListPageParser {
-  Map<String, dynamic> parseAnimeListPage(String page) {
+  
+  Map<String, dynamic> parseAnimeListPage(String page, {bool isSearch = false}) {
     var body = parse(page).getElementsByTagName('body')[0];
 
-    var animeItems = _parseAnimeItems(body);
+    try {
+      var animeItems = _parseAnimeItems(body, isSearch ?
+      _AnimeListPageClasses.SEARCH_CONTAINER : _AnimeListPageClasses.ANIME_LIST);
 
     var paginationInfo = _parsePaginationData(body);
 
@@ -15,49 +18,58 @@ class AnimeListPageParser {
       AnimeListPageInfo.MAX_PAGE_NUMBER:
           paginationInfo[AnimeListPageInfo.MAX_PAGE_NUMBER]
     };
+  } catch (ex){
+    print('Error in parsing process. AnimeListPageParser::parseAnimeListPage\n$ex');
+    throw ParserException(
+      message: "Error parsing anime list page"
+    );
+  }
+    
   }
 
-  List<Map<String, dynamic>> _parseAnimeItems(Element body) {
+  List<Map<String, dynamic>> _parseAnimeItems(Element body, String containerClassName) {
     var elementList =
-        body.getElementsByClassName(_AnimeListPageClasses.ANIME_LIST)[0];
+        body.getElementsByClassName(containerClassName)[0];
 
-    // verifying if there data available
-    if (elementList.children[0].attributes['class'] !=
-        _AnimeListPageClasses.LIST_NOT_FOUND) {
-      return elementList.children
-          .map((item) => ItemParser.parseItem(
-              item, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC))
-          .toList();
+    if (elementList.children.isNotEmpty ) {
+      // verifying if there data available
+      if (elementList.children[0].attributes['class'] !=
+          _AnimeListPageClasses.LIST_NOT_FOUND) {
+        return elementList.children
+            .map((item) =>
+            ItemParser.parseItem(
+                item, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC))
+            .toList();
+      }
     }
-
     return [];
   }
 
   Map<String, dynamic> _parsePaginationData(Element body) {
-    var elementList =
-        body.getElementsByClassName(_AnimeListPageClasses.PAGINATION);
     var currentPageNumber, totalPageNumber;
     currentPageNumber = totalPageNumber = '0';
 
-    if (elementList.length > 0) {
-      var paginationDiv = elementList[0];
+    var elementList = body.getElementsByClassName(_AnimeListPageClasses.PAGINATION);
 
-      currentPageNumber = paginationDiv
-          .getElementsByClassName(_AnimeListPageClasses.CURRENT)[0]
-          .text;
+    if (elementList != null || elementList.isNotEmpty) {
+      if (elementList.length > 0) {
+        var paginationDiv = elementList[0];
 
-      totalPageNumber = currentPageNumber;
+        currentPageNumber = paginationDiv
+            .getElementsByClassName(_AnimeListPageClasses.CURRENT)[0]
+            .text;
 
-      for (var i = 0; i < paginationDiv.children.length; i++) {
-        var element = paginationDiv.children[i];
-        if (element.attributes['class'].contains(_AnimeListPageClasses.NEXT)) {
-          totalPageNumber = paginationDiv.children[i - 1].text;
+        totalPageNumber = currentPageNumber;
+
+        for (var i = 0; i < paginationDiv.children.length; i++) {
+          var element = paginationDiv.children[i];
+          if (element.attributes['class'].contains(
+              _AnimeListPageClasses.NEXT)) {
+            totalPageNumber = paginationDiv.children[i - 1].text;
+          }
         }
       }
     }
-
-    //print('Current Page Number $currentPageNumber');
-    //print('Total Page Number $totalPageNumber');
 
     return {
       AnimeListPageInfo.CURRENT_PAGE: currentPageNumber,
@@ -67,6 +79,7 @@ class AnimeListPageParser {
 }
 
 class _AnimeListPageClasses {
+  static const SEARCH_CONTAINER = "searchPagContainer";
   static const PAGINATION = "paginacao";
   static const ANIME_LIST = "listaPagAnimes";
   static const LIST_NOT_FOUND = "listaPagNotfound";

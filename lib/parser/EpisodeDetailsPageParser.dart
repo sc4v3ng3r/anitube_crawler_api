@@ -4,7 +4,8 @@ class EpisodeDetailsPageParser {
   Map<String, dynamic> parseEpisodeDetailsPage(String page) {
     if (page == null || page.isEmpty) return {};
 
-    Document html = parse(page);
+    try {
+      Document html = parse(page);
     var body = html.getElementsByTagName('body')[0];
 
     var episodeTitle =
@@ -31,6 +32,11 @@ class EpisodeDetailsPageParser {
       EpisodeDetails.PREVIOUS: _extractEpisodeId(previous),
       EpisodeDetails.DESCRIPTION: description,
     };
+    } 
+    catch (ex){
+      print('Error in parsing process EpisodeDetailsPageParser::parseEpisodeDetailsPage\n $ex');
+      throw ParserException(message: "Error parsing data.");
+    }
   }
 
   String _extractEpisodeId(Element element) {

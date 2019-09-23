@@ -8,7 +8,6 @@ abstract class PageFetcher {
 
   /// get dio instance.
   Dio get dio => _dio;
-
-  /// TODO Add ignore certificates parameter in constructor future.
+  
   PageFetcher() : _dio = Dio();
 }

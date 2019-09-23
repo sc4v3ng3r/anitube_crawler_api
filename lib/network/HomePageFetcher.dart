@@ -17,8 +17,24 @@ class HomePageFetcher extends PageFetcher {
       );
 
       page = resp.data;
-    } catch (ex) {
+    } 
+    
+    on DioError catch (ex) {
       print('HomePageFetcher::fetchHomePage() $ex');
+      switch(ex.type){
+        case DioErrorType.SEND_TIMEOUT:
+        case DioErrorType.RECEIVE_TIMEOUT:
+        case DioErrorType.CONNECT_TIMEOUT:
+          throw TimeoutException(message: ex.message);
+          break;
+          
+        // case DioErrorType.RESPONSE:
+        // case DioErrorType.CANCEL:
+        // case DioErrorType.DEFAULT:
+        default:
+          throw NetworkException(message: ex.message);
+          break;
+      }
     }
 
     return page;

@@ -9,7 +9,8 @@ class HomePageParser {
     Document pageDocument;
 
     if (page != null || page.isNotEmpty) {
-      pageDocument = parse(page);
+      try {
+              pageDocument = parse(page);
       var body = pageDocument.getElementsByTagName('body')[0];
       var containers =
           body.getElementsByClassName(_HomePageHtmlNames.ANI_CONTAINER);
@@ -23,6 +24,12 @@ class HomePageParser {
         dataList.add(ItemParser.parseItem(
             aniItem, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC));
       });
+
+      } 
+      catch (ex){
+        print('HomePageParser::_parseAnimeItemContent error while parsing.\n$ex');
+        throw ParserException(message: "Error parsing Animes");
+      } 
     }
 
     return dataList;

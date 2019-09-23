@@ -9,27 +9,36 @@ class ItemParser {
 
   static Map<String, dynamic> parseItem(Element itemElement,
       String divImageClassName, String closedCaptionClassName) {
-    var pageLink = itemElement.children[0].attributes['href'];
-    var title = itemElement.children[0].attributes['title'];
-    var id = pageLink.split('.site/')[1];
+    try {
+      var pageLink = itemElement.children[0].attributes['href'];
+      var title = itemElement.children[0].attributes['title'];
+      var id = pageLink.split('.site/')[1];
 
-    id = id.substring(0, id.length - 1);
+      id = id.substring(0, id.length - 1);
 
-    var itemImgDiv = itemElement.children[0]
-        //divImageClassName
-        .getElementsByClassName(divImageClassName)[0];
+      var itemImgDiv = itemElement.children[0]
+          //divImageClassName
+          .getElementsByClassName(divImageClassName)[0];
 
-    var imageUrl = itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
+      var imageUrl =
+          itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
 
-    /// closedCaptionClassName
-    var cc = itemImgDiv.getElementsByClassName(closedCaptionClassName)[0].text;
+      /// closedCaptionClassName
+      var cc =
+          itemImgDiv.getElementsByClassName(closedCaptionClassName)[0].text;
 
-    return {
-      Item.ID: id,
-      Item.TITLE: title,
-      Item.PAGE_URL: pageLink,
-      Item.IMAGE_URL: imageUrl,
-      Item.CC: cc,
-    };
+      return {
+        Item.ID: id,
+        Item.TITLE: title,
+        Item.PAGE_URL: pageLink,
+        Item.IMAGE_URL: imageUrl,
+        Item.CC: cc,
+      };
+    } 
+    
+    catch (ex) {
+      print("ItemParser::parseItem error parsing item.\n $ex");
+      throw ParserException(message: "Error parsing item");
+    }
   }
 }

@@ -5,7 +5,8 @@ class GenrePageParser {
     var list = <String>[];
 
     if (page != null || page.isNotEmpty) {
-      var body = parse(page);
+      try {
+        var body = parse(page);
 
       body
           .getElementsByClassName(_GenrePageNames.GENRE_CONTAINER)[0]
@@ -13,6 +14,11 @@ class GenrePageParser {
           .forEach((genreAnchor) {
         list.add(genreAnchor.text);
       });
+      } 
+      catch (ex){
+        print('GenrePageParser error while parsing.\n $ex');
+        throw ParserException(message: "Error parsing genres data.");
+      }
     }
 
     return list;
