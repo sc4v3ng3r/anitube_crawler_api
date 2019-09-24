@@ -1,3 +1,5 @@
+part of anitube_crawler_api;
+
 enum ErrorType { TIMEOUT, NETWORK, PARSER, }
 
 abstract class CrawlerApiException implements Exception{

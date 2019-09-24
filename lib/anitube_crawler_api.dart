@@ -1,32 +1,32 @@
 library anitube_crawler_api;
 
-import 'package:anitube_crawler_api/exception/CrawlerApiException.dart';
 import 'package:dio/dio.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 
-part 'network/AnitubePath.dart';
-part 'network/HomePageFetcher.dart';
-part 'network/PageFetcher.dart';
-part 'network/GenrePageFetcher.dart';
-part 'network/AnimeListPageFetcher.dart';
-part 'network/AnimeDetailsPageFetcher.dart';
-part 'network/EpisodeDetailsPageFetcher.dart';
+part 'src/network/AnitubePath.dart';
+part 'src/network/HomePageFetcher.dart';
+part 'src/network/PageFetcher.dart';
+part 'src/network/GenrePageFetcher.dart';
+part 'src/network/AnimeListPageFetcher.dart';
+part 'src/network/AnimeDetailsPageFetcher.dart';
+part 'src/network/EpisodeDetailsPageFetcher.dart';
 
-part 'parser/HomePageParser.dart';
-part 'parser/GenrePageParser.dart';
-part 'parser/ItemParser.dart';
-part 'parser/AnimeListPageParser.dart';
-part 'parser/AnimeDetailsPageParser.dart';
-part 'parser/EpisodeDetailsPageParser.dart';
+part 'src/parser/HomePageParser.dart';
+part 'src/parser/GenrePageParser.dart';
+part 'src/parser/ItemParser.dart';
+part 'src/parser/AnimeListPageParser.dart';
+part 'src/parser/AnimeDetailsPageParser.dart';
+part 'src/parser/EpisodeDetailsPageParser.dart';
 
-part 'model/AnimeItem.dart';
-part 'model/HomePageInfo.dart';
-part 'model/AnimeListPageInfo.dart';
-part 'model/EpisodeItem.dart';
-part 'model/Item.dart';
-part 'model/AnimeDetails.dart';
-part 'model/EpisodeDetails.dart';
+part 'src/model/AnimeItem.dart';
+part 'src/model/HomePageInfo.dart';
+part 'src/model/AnimeListPageInfo.dart';
+part 'src/model/EpisodeItem.dart';
+part 'src/model/Item.dart';
+part 'src/model/AnimeDetails.dart';
+part 'src/model/EpisodeDetails.dart';
+part 'src/exception/CrawlerApiException.dart';
 
 ///
 /// AniTubeApi is a API which allows you fetch data from
