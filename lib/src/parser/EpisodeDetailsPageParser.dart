@@ -12,10 +12,13 @@ class EpisodeDetailsPageParser {
         body.getElementsByClassName(_EpisodePageNames.TITLE_CLASS)[0].text;
     print('Episode Title ${episodeTitle.trim()}');
 
-    var videoUrl = body
-        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
-        .attributes['data-download'];
-    print('Video Url: $videoUrl');
+    var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
+    var videoUrl = _extractVidePageUrl(div);
+
+//    var videoUrl = body
+//        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
+//        .attributes['data-download'];
+//    print('Video Url: $videoUrl');
 
     // getting next and previous episodes
     var episodesContainer =
@@ -53,6 +56,10 @@ class EpisodeDetailsPageParser {
             ?.text ??
         '';
   }
+  
+  String _extractVidePageUrl(Element element) =>
+      element.getElementsByTagName('a')[0]
+        .attributes['href'];
 }
 
 class _EpisodePageNames {
@@ -62,4 +69,5 @@ class _EpisodePageNames {
   static const ID_NEXT_EPISODE = "proximoEPLink"; // anchor for next episode
   static const LINK_DISABLE_CLASS = "linkdisabled";
   static const DESCRIPTION_CONTAINER = "pagEpiDesc";
+  static const DIV_P1_ID = "p1";
 }

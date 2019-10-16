@@ -1,59 +1,53 @@
 import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 
 void main() async {
-
-  var api = AniTubeApi();
-  //var animeDetails = await api.getAnimeDetails("881122");
-  //print(animeDetails);
-
+  var localTimeout = 47000; // defining 7 seconds timeout
+  AniTubeApi api = AniTubeApi();
+  HomePageInfo homePage;
   
-  //await api.getEpisodeDetails('881141');
+  try {
+    // This call returns a HomePageInfo instance or throws an exception
+    // if somethings goes wrong,
+    homePage = await api.getHomePageData(timeout: localTimeout);
+    print('========== MOST RECENT ANIMES ${homePage.mostRecentAnimes.length} ==========');
+    homePage.mostRecentAnimes.forEach( (animeItem) => print(animeItem) );
+    print('========================================\n');
 
-//  var d = await api.getAnimeListPageData(
-//    startWith: 'p',
-//    animeType: AnimeType.DUBBED
-//  );
-//
-//  d.animes.forEach(  print );
+    print('========== MOST SHOWED ANIMES ${homePage.mostShowedAnimes} ==========');
+    homePage.mostShowedAnimes.forEach( (animeItem) => print(animeItem) );
+    print('========================================\n');
 
-  //print('PAGES ${d.maxPageNumber}');
-
-//  var data = await api.getHomePageData();
-//  data.latestEpisodes.forEach( print );
-//
-
-  var data = await api.search(' ',);
-
-  print('Number of pages ${data.maxPageNumber}');
-  print('Animes number: ${data.animes.length}');
-  data.animes.forEach(  print );
-
-//  var pageInfo = await api.getAnimeListPageData(
-//    animeType: AnimeType.DUBBED,
-//  );
-//
-//  print('current page: ${pageInfo.currentPageNumber}');
-//  print('total pages: ${pageInfo.maxPageNumber}');
-//  pageInfo.animes.forEach( print );
+    print('========== LATEST EPISODES ${homePage.latestEpisodes} =============');
+    homePage.latestEpisodes .forEach( (episodeItem) => print(episodeItem) );
+    print('========================================\n');
 
 
+    // getting anime info details 
+    AnimeDetails animeDetails = await api.getAnimeDetails( homePage.mostShowedAnimes[3].id,
+      timeout: localTimeout);
+    // shows a lot of property and values.
+    print('===== DETAILS OF ${animeDetails.title} =====');
+//    print(animeDetails);
 
+    // getting episode details by id. Returning data like streamingUrl.
+    print("---------------Getting EPISODE ID ${animeDetails.episodes[0].id}");
+    var episodeDetails = await api.getEpisodeDetails(animeDetails.episodes[0].id);
+    print(episodeDetails);
 
-  //var homePage = await api.getHomePageData();
-//  await api.getGenresAvailable();
+    // getting all genres available
+    var genres = await api.getGenresAvailable(timeout: localTimeout);
+    // string list with all genres.
+    print(genres);
 
-  //var homePage = await api.getHomePageData()
+    // search animes that starts with 'nar'
+    AnimeListPageInfo info = await api.search('nar', timeout: localTimeout);
+    print('current page number ${info.pageNumber}');
+    print('Total Pages number: ${info.maxPageNumber}');
+    print(info.animes);
+  } 
   
-  //homePage.mostShowedAnimes.forEach( print );
+  on CrawlerApiException catch (ex){
+    print('${ex.errorType} -> ${ex.message}');
+  }
 
-  //homePage.mostRecentAnimes.forEach(print);
-
-  //print(data);
-  //  test('adds one to input values', () {
-//    final calculator = Calculator();
-//    expect(calculator.addOne(2), 3);
-//    expect(calculator.addOne(-7), -6);
-//    expect(calculator.addOne(0), 1);
-//    expect(() => calculator.addOne(null), throwsNoSuchMethodError);
-//  });
 }

@@ -11,6 +11,7 @@ part 'src/network/GenrePageFetcher.dart';
 part 'src/network/AnimeListPageFetcher.dart';
 part 'src/network/AnimeDetailsPageFetcher.dart';
 part 'src/network/EpisodeDetailsPageFetcher.dart';
+part 'src/network/EpisodeVideoPageFetcher.dart';
 
 part 'src/parser/HomePageParser.dart';
 part 'src/parser/GenrePageParser.dart';
@@ -18,6 +19,7 @@ part 'src/parser/ItemParser.dart';
 part 'src/parser/AnimeListPageParser.dart';
 part 'src/parser/AnimeDetailsPageParser.dart';
 part 'src/parser/EpisodeDetailsPageParser.dart';
+part 'src/parser/VideoPageParser.dart';
 
 part 'src/model/AnimeItem.dart';
 part 'src/model/HomePageInfo.dart';
@@ -51,6 +53,8 @@ class AniTubeApi {
       EpisodeDetailsPageFetcher();
   final EpisodeDetailsPageParser _episodeDetailsPageParser =
       EpisodeDetailsPageParser();
+
+  final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
 
   /// This method fetch the animetube.site website home page with all
   /// info available. It returns a HomePageInfo object with the data
@@ -123,8 +127,8 @@ class AniTubeApi {
   /// This methods returns details about an specified anime.
   /// It returns a AnimeDetails object instance.
   /// [animeId] : The anime id to get details info.
-  Future<AnimeDetails> getAnimeDetails(String animeId) async {
-    String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId);
+  Future<AnimeDetails> getAnimeDetails(String animeId, {int timeout = PageFetcher.TIMEOUT_MS}) async {
+    String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId, timeout: timeout);
 
     var detailsData = _animeDetailsPageParser.parseAnimeDetailsPage(page);
     return AnimeDetails.fromJson(detailsData);
@@ -134,10 +138,18 @@ class AniTubeApi {
   /// streaming url.
   /// It returns a EpisodeDetails object instance.
   /// [episodeId] : The episode id to get details info.
-  Future<EpisodeDetails> getEpisodeDetails(String episodeId) async {
-    String page = await _episodeDetailsPageFetcher.getEpisodePage(episodeId);
+  Future<EpisodeDetails> getEpisodeDetails(String episodeId, 
+    {int timeout = PageFetcher.TIMEOUT_MS} ) async {
+    String page = await _episodeDetailsPageFetcher.getEpisodePage(
+      episodeId, timeout: timeout);
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
+    var videoPage = await _videoPageFetcher.getVideoPage(
+        jsonData[EpisodeDetails.STREAM_URL] ,
+        timeout: timeout
+    );
+
+    jsonData[EpisodeDetails.STREAM_URL] = VideoPageParser.getStreamUrl(videoPage);
     return EpisodeDetails.fromJson(jsonData);
   }
 
@@ -155,6 +167,9 @@ class AniTubeApi {
 
     var data = _animeListPageParser.parseAnimeListPage(page, isSearch: true);
     return AnimeListPageInfo.fromJson(data);
+  }
 
+  static Future<String> getEpisodeUrlStream(String episodeId) async {
+    return null;
   }
 }
