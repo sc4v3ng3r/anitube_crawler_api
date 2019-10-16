@@ -168,8 +168,4 @@ class AniTubeApi {
     var data = _animeListPageParser.parseAnimeListPage(page, isSearch: true);
     return AnimeListPageInfo.fromJson(data);
   }
-
-  static Future<String> getEpisodeUrlStream(String episodeId) async {
-    return null;
-  }
 }
