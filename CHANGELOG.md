@@ -1,3 +1,6 @@
+## [0.1.2+1] - 24/12/2019
+* Fixing Anime details page parsing handling no resume available. 
+
 ## [0.1.2] - 24/12/2019
 * Fixing Anime details page parsing. 
 
