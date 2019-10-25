@@ -6,38 +6,38 @@ class EpisodeDetailsPageParser {
 
     try {
       Document html = parse(page);
-    var body = html.getElementsByTagName('body')[0];
+      var body = html.getElementsByTagName('body')[0];
 
-    var episodeTitle =
-        body.getElementsByClassName(_EpisodePageNames.TITLE_CLASS)[0].text;
-    print('Episode Title ${episodeTitle.trim()}');
+      var episodeTitle =
+          body.getElementsByClassName(_EpisodePageNames.TITLE_CLASS)[0].text;
+      print('Episode Title ${episodeTitle.trim()}');
 
-    var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
-    var videoUrl = _extractVidePageUrl(div);
+      var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
+      var videoUrl = _extractVidePageUrl(div);
 
 //    var videoUrl = body
 //        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
 //        .attributes['data-download'];
 //    print('Video Url: $videoUrl');
 
-    // getting next and previous episodes
-    var episodesContainer =
-        body.getElementsByClassName(_EpisodePageNames.NEXT_PREV_CONTAINER)[0];
+      // getting next and previous episodes
+      var episodesContainer =
+          body.getElementsByClassName(_EpisodePageNames.NEXT_PREV_CONTAINER)[0];
 
-    var previous = episodesContainer.children[0];
-    var nextElement = html.getElementById(_EpisodePageNames.ID_NEXT_EPISODE);
-    var description = _extractDescription(body);
+      var previous = episodesContainer.children[0];
+      var nextElement = html.getElementById(_EpisodePageNames.ID_NEXT_EPISODE);
+      var description = _extractDescription(body);
 
-    return {
-      EpisodeDetails.TITLE: episodeTitle,
-      EpisodeDetails.STREAM_URL: videoUrl,
-      EpisodeDetails.NEXT: _extractEpisodeId(nextElement),
-      EpisodeDetails.PREVIOUS: _extractEpisodeId(previous),
-      EpisodeDetails.DESCRIPTION: description,
-    };
-    } 
-    catch (ex){
-      print('Error in parsing process EpisodeDetailsPageParser::parseEpisodeDetailsPage\n $ex');
+      return {
+        EpisodeDetails.TITLE: episodeTitle,
+        EpisodeDetails.STREAM_URL: videoUrl,
+        EpisodeDetails.NEXT: _extractEpisodeId(nextElement),
+        EpisodeDetails.PREVIOUS: _extractEpisodeId(previous),
+        EpisodeDetails.DESCRIPTION: description,
+      };
+    } catch (ex) {
+      print(
+          'Error in parsing process EpisodeDetailsPageParser::parseEpisodeDetailsPage\n $ex');
       throw ParserException(message: "Error parsing data.");
     }
   }
@@ -56,10 +56,9 @@ class EpisodeDetailsPageParser {
             ?.text ??
         '';
   }
-  
+
   String _extractVidePageUrl(Element element) =>
-      element.getElementsByTagName('a')[0]
-        .attributes['href'];
+      element.getElementsByTagName('a')[0].attributes['href'];
 }
 
 class _EpisodePageNames {

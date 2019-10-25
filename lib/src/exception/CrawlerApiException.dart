@@ -1,8 +1,12 @@
 part of anitube_crawler_api;
 
-enum ErrorType { TIMEOUT, NETWORK, PARSER, }
+enum ErrorType {
+  TIMEOUT,
+  NETWORK,
+  PARSER,
+}
 
-abstract class CrawlerApiException implements Exception{
+abstract class CrawlerApiException implements Exception {
   final String message;
   final ErrorType errorType;
 
@@ -10,11 +14,13 @@ abstract class CrawlerApiException implements Exception{
 }
 
 class TimeoutException extends CrawlerApiException {
-  TimeoutException({String message}) : super(ErrorType.TIMEOUT, message: message);
+  TimeoutException({String message})
+      : super(ErrorType.TIMEOUT, message: message);
 }
 
 class NetworkException extends CrawlerApiException {
-  NetworkException({String message}) : super(ErrorType.NETWORK, message:message);
+  NetworkException({String message})
+      : super(ErrorType.NETWORK, message: message);
 }
 
 class ParserException extends CrawlerApiException {

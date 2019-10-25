@@ -127,8 +127,10 @@ class AniTubeApi {
   /// This methods returns details about an specified anime.
   /// It returns a AnimeDetails object instance.
   /// [animeId] : The anime id to get details info.
-  Future<AnimeDetails> getAnimeDetails(String animeId, {int timeout = PageFetcher.TIMEOUT_MS}) async {
-    String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId, timeout: timeout);
+  Future<AnimeDetails> getAnimeDetails(String animeId,
+      {int timeout = PageFetcher.TIMEOUT_MS}) async {
+    String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId,
+        timeout: timeout);
 
     var detailsData = _animeDetailsPageParser.parseAnimeDetailsPage(page);
     return AnimeDetails.fromJson(detailsData);
@@ -138,18 +140,17 @@ class AniTubeApi {
   /// streaming url.
   /// It returns a EpisodeDetails object instance.
   /// [episodeId] : The episode id to get details info.
-  Future<EpisodeDetails> getEpisodeDetails(String episodeId, 
-    {int timeout = PageFetcher.TIMEOUT_MS} ) async {
-    String page = await _episodeDetailsPageFetcher.getEpisodePage(
-      episodeId, timeout: timeout);
+  Future<EpisodeDetails> getEpisodeDetails(String episodeId,
+      {int timeout = PageFetcher.TIMEOUT_MS}) async {
+    String page = await _episodeDetailsPageFetcher.getEpisodePage(episodeId,
+        timeout: timeout);
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
-    var videoPage = await _videoPageFetcher.getVideoPage(
-        jsonData[EpisodeDetails.STREAM_URL] ,
-        timeout: timeout
-    );
+    var videoPage = await _videoPageFetcher
+        .getVideoPage(jsonData[EpisodeDetails.STREAM_URL], timeout: timeout);
 
-    jsonData[EpisodeDetails.STREAM_URL] = VideoPageParser.getStreamUrl(videoPage);
+    jsonData[EpisodeDetails.STREAM_URL] =
+        VideoPageParser.getStreamUrl(videoPage);
     return EpisodeDetails.fromJson(jsonData);
   }
 
@@ -160,8 +161,7 @@ class AniTubeApi {
   /// or 8000 miliseconds.
   /// [pageNumber] The anitube site page number to load.
   Future<AnimeListPageInfo> search(String query,
-  {int pageNumber = 1, int timeout = PageFetcher.TIMEOUT_MS}) async {
-
+      {int pageNumber = 1, int timeout = PageFetcher.TIMEOUT_MS}) async {
     String page = await _animeListPageFetcher.search(query,
         pageNumber: pageNumber, timeout: timeout);
 

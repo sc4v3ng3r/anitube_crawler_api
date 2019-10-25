@@ -34,9 +34,7 @@ class ItemParser {
         Item.IMAGE_URL: imageUrl,
         Item.CC: cc,
       };
-    } 
-    
-    catch (ex) {
+    } catch (ex) {
       print("ItemParser::parseItem error parsing item.\n $ex");
       throw ParserException(message: "Error parsing item");
     }

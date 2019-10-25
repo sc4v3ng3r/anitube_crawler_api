@@ -10,26 +10,25 @@ class HomePageParser {
 
     if (page != null || page.isNotEmpty) {
       try {
-              pageDocument = parse(page);
-      var body = pageDocument.getElementsByTagName('body')[0];
-      var containers =
-          body.getElementsByClassName(_HomePageHtmlNames.ANI_CONTAINER);
+        pageDocument = parse(page);
+        var body = pageDocument.getElementsByTagName('body')[0];
+        var containers =
+            body.getElementsByClassName(_HomePageHtmlNames.ANI_CONTAINER);
 
-      // most recents aniItems
-      var aniItemList = containers[category.index]
-          .children[1]
-          .getElementsByClassName(ItemParser.ANI_ITEM);
+        // most recents aniItems
+        var aniItemList = containers[category.index]
+            .children[1]
+            .getElementsByClassName(ItemParser.ANI_ITEM);
 
-      aniItemList.forEach((aniItem) {
-        dataList.add(ItemParser.parseItem(
-            aniItem, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC));
-      });
-
-      } 
-      catch (ex){
-        print('HomePageParser::_parseAnimeItemContent error while parsing.\n$ex');
+        aniItemList.forEach((aniItem) {
+          dataList.add(ItemParser.parseItem(
+              aniItem, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC));
+        });
+      } catch (ex) {
+        print(
+            'HomePageParser::_parseAnimeItemContent error while parsing.\n$ex');
         throw ParserException(message: "Error parsing Animes");
-      } 
+      }
     }
 
     return dataList;

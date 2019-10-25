@@ -8,6 +8,6 @@ abstract class PageFetcher {
 
   /// get dio instance.
   Dio get dio => _dio;
-  
+
   PageFetcher() : _dio = Dio();
 }
