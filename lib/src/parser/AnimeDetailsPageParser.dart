@@ -13,7 +13,7 @@ class AnimeDetailsPageParser {
             .children[0]
             .attributes['src'];
 
-        var resume = doc.getElementById(_AnimeDetailsPageNames.ID_RESUME).text;
+        var resume = doc.getElementById(_AnimeDetailsPageNames.ID_RESUME)?.text ?? '';
 
         var infoBox = body.getElementsByClassName(
             _AnimeDetailsPageNames.ANIME_BOX_ABOUT_IT)[0];
