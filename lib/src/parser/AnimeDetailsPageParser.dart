@@ -14,6 +14,7 @@ class AnimeDetailsPageParser {
             .attributes['src'];
 
         var resume = doc.getElementById(_AnimeDetailsPageNames.ID_RESUME).text;
+
         var infoBox = body.getElementsByClassName(
             _AnimeDetailsPageNames.ANIME_BOX_ABOUT_IT)[0];
 
@@ -22,20 +23,26 @@ class AnimeDetailsPageParser {
         var container = body.getElementsByClassName(
             _AnimeDetailsPageNames.ANIME_EPISODES_CONTAINER);
 
+        var episodesItemList;
+
         // The first container is the episode containers
         // some titles has OVAS and MOVIES containers too.
         // but for now let's get only the episodes.
-        var episodesItemList =
-            container[0].children.map<Map<String, dynamic>>((anchor) {
-          var id = anchor.attributes['href'].split(AnitubePath.BASE_PATH).last;
-          return {
-            Item.ID: id.substring(0, id.length - 1),
-            Item.TITLE: anchor.attributes['title'],
-            Item.PAGE_URL: anchor.attributes['href'],
-            Item.IMAGE_URL: imageUrl,
-            Item.CC: infoMap[AnimeDetails.CC] ?? '',
-          };
-        }).toList();
+        if (container != null && container.isNotEmpty) {
+          episodesItemList =
+              container[0].children.map<Map<String, dynamic>>((anchor) {
+            var id =
+                anchor.attributes['href'].split(AnitubePath.BASE_PATH).last;
+            return {
+              Item.ID: id.substring(0, id.length - 1),
+              Item.TITLE: anchor.attributes['title'],
+              Item.PAGE_URL: anchor.attributes['href'],
+              Item.IMAGE_URL: imageUrl,
+              Item.CC: infoMap[AnimeDetails.CC] ?? '',
+            };
+          }).toList();
+        } else
+          episodesItemList = [];
 
         return {
           AnimeDetails.TITLE: animeTitle,
@@ -55,9 +62,8 @@ class AnimeDetailsPageParser {
           AnimeDetails.OVAS: infoMap[AnimeDetails.OVAS] ?? "",
         };
       } catch (ex) {
-        print( "AnimeDetailsPageParser\n$ex");
-        throw ParserException(
-            message: "Error parsing anime details page.");
+        print("AnimeDetailsPageParser\n$ex");
+        throw ParserException(message: "Error parsing anime details page.");
       }
     }
 
