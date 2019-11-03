@@ -30,52 +30,91 @@ class AnimeListPageParser {
 
   List<Map<String, dynamic>> _parseAnimeItems(
       Element body, String containerClassName) {
-    var elementList = body.getElementsByClassName(containerClassName)[0];
 
-    if (elementList.children.isNotEmpty) {
-      // verifying if there data available
-      if (elementList.children[0].attributes['class'] !=
-          _AnimeListPageClasses.LIST_NOT_FOUND) {
-        return elementList.children
-            .map((item) => ItemParser.parseItem(
-                item, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC))
-            .toList();
-      }
-    }
-    return [];
-  }
+    var container = body.getElementsByClassName(containerClassName);
+    Element elementList;
+    List<Map<String, dynamic>> resultsList = [];
 
-  Map<String, dynamic> _parsePaginationData(Element body) {
-    var currentPageNumber, totalPageNumber;
-    currentPageNumber = totalPageNumber = '0';
+    if (container.isNotEmpty){
+      elementList = container[0];
 
-    var elementList =
-        body.getElementsByClassName(_AnimeListPageClasses.PAGINATION);
+      try {
 
-    if (elementList != null || elementList.isNotEmpty) {
-      if (elementList.length > 0) {
-        var paginationDiv = elementList[0];
+        if (elementList.children.isNotEmpty) {
+          // verifying if there data available
+          if (elementList.children[0].attributes['class'] !=
+              _AnimeListPageClasses.LIST_NOT_FOUND) {
 
-        currentPageNumber = paginationDiv
-            .getElementsByClassName(_AnimeListPageClasses.CURRENT)[0]
-            .text;
+            for(int i=0; i < elementList.children.length; i++){
+              try {
+                var item = ItemParser.parseItem(
+                 elementList.children[i], ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC);
+                resultsList.add(item);
+              }
+              catch(ex){
+                print('AnimeListPageParser::_parseAnimeItems when try parseItem $ex');
+                throw ParserException(message: ex.toString());
+              }
+            }
 
-        totalPageNumber = currentPageNumber;
+            return resultsList;
+//            return elementList.children
+//                .map((item) => ItemParser.parseItem(
+//                item, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC))
+//                .toList();
 
-        for (var i = 0; i < paginationDiv.children.length; i++) {
-          var element = paginationDiv.children[i];
-          if (element.attributes['class']
-              .contains(_AnimeListPageClasses.NEXT)) {
-            totalPageNumber = paginationDiv.children[i - 1].text;
           }
         }
       }
+
+      catch (ex){
+        print('AnimeListParser::_parseAnimeItems ${ex.toString()}');
+        throw ParserException(message: '${ex.toString()}');
+      }
     }
 
-    return {
-      AnimeListPageInfo.CURRENT_PAGE: currentPageNumber,
-      AnimeListPageInfo.MAX_PAGE_NUMBER: totalPageNumber,
-    };
+    return resultsList;
+  }
+
+  Map<String, dynamic> _parsePaginationData(Element body) {
+    try {
+      var currentPageNumber, totalPageNumber;
+      currentPageNumber = totalPageNumber = '0';
+
+      var elementList =
+      body.getElementsByClassName(_AnimeListPageClasses.PAGINATION);
+
+      if (elementList != null || elementList.isNotEmpty) {
+        if (elementList.length > 0) {
+          var paginationDiv = elementList[0];
+
+          currentPageNumber = paginationDiv
+              .getElementsByClassName(_AnimeListPageClasses.CURRENT)[0]
+              .text;
+
+          totalPageNumber = currentPageNumber;
+
+          for (var i = 0; i < paginationDiv.children.length; i++) {
+            var element = paginationDiv.children[i];
+            if (element.attributes['class']
+                .contains(_AnimeListPageClasses.NEXT)) {
+              totalPageNumber = paginationDiv.children[i - 1].text;
+            }
+          }
+        }
+      }
+
+      return {
+        AnimeListPageInfo.CURRENT_PAGE: currentPageNumber,
+        AnimeListPageInfo.MAX_PAGE_NUMBER: totalPageNumber,
+      };
+
+    }
+
+    catch(ex){
+      print('AnimeListParser::_parsePaginationData ${ex.toString()}');
+      throw ParserException(message: ex.toString());
+    }
   }
 }
 
