@@ -9,6 +9,7 @@ class EpisodeDetails {
   static const PREVIOUS = "previous";
   static const NEXT = "next";
   static const DESCRIPTION = "description";
+  static const REFER = "refer";
 
   /// The episode title.
   final String title;
@@ -25,17 +26,22 @@ class EpisodeDetails {
   /// Episode description
   final String description;
 
+  /// Token needed to execute this episode. Is the same as page url.
+  final String refer;
+
   EpisodeDetails.fromJson(Map<String, dynamic> json)
       : title = json[TITLE] ?? '',
         streamingUrl = json[STREAM_URL] ?? '',
         previousEpisodeId = json[PREVIOUS] ?? '',
         nextEpisodeId = json[NEXT] ?? '',
-        description = json[DESCRIPTION] ?? '';
+        description = json[DESCRIPTION] ?? '',
+        refer = json[REFER] ?? '';
 
   @override
   String toString() => "$TITLE: $title\n"
       "$STREAM_URL: $streamingUrl\n"
       "$NEXT: $nextEpisodeId\n"
       "$PREVIOUS : $previousEpisodeId\n"
-      "$DESCRIPTION: $description";
+      "$DESCRIPTION: $description\n"
+      "$REFER: $refer";
 }

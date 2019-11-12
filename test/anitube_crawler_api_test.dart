@@ -22,12 +22,12 @@ void main() async {
     print('========================================\n');
 
 
-    // getting anime info details
-    AnimeDetails animeDetails = await api.getAnimeDetails( homePage.mostShowedAnimes[3].id,
+//     getting anime info details
+    AnimeDetails animeDetails = await api.getAnimeDetails( homePage.mostShowedAnimes[2].id,
       timeout: localTimeout);
     // shows a lot of property and values.
     print('===== DETAILS OF ${animeDetails.title} =====');
-//    print(animeDetails);
+    print(animeDetails);
 
     // getting episode details by id. Returning data like streamingUrl.
     print("---------------Getting EPISODE ID ${animeDetails.episodes[0].id}");
