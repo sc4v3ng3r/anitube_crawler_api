@@ -14,7 +14,6 @@ class EpisodeDetailsPageParser {
 
       var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
       var videoUrl = _extractVideoPageUrl(div);
-      var refer = _extractTokenFromUrl(videoUrl);
 
 //    var videoUrl = body
 //        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
@@ -35,7 +34,7 @@ class EpisodeDetailsPageParser {
         EpisodeDetails.NEXT: _extractEpisodeId(nextElement),
         EpisodeDetails.PREVIOUS: _extractEpisodeId(previous),
         EpisodeDetails.DESCRIPTION: description,
-        EpisodeDetails.REFER: refer,
+        EpisodeDetails.REFERER: videoUrl,
       };
     } catch (ex) {
       print(
@@ -61,8 +60,6 @@ class EpisodeDetailsPageParser {
 
   String _extractVideoPageUrl(Element element) =>
       element.getElementsByTagName('a')[0].attributes['href'];
-
-  String _extractTokenFromUrl(String url) => url.split('&t=')[1];
 }
 
 class _EpisodePageNames {
