@@ -1,3 +1,6 @@
+## [0.1.4] 07/12/2019
+* Updating anime list, search by letter and genre list page paths.
+
 ## [0.1.3+1] - 11/11/2019
 * Enable Refer header property support. EpisodeDetails instances now comes with a refer property. 
 That is used to execute the episode.
