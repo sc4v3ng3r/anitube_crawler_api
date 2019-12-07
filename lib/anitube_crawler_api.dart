@@ -36,27 +36,29 @@ part 'src/exception/CrawlerApiException.dart';
 /// animetube.site brazilian anime website.
 ///
 class AniTubeApi {
-  final HomePageFetcher _homePageFetcher = HomePageFetcher();
-  final HomePageParser _homePageParser = HomePageParser();
+  static final HomePageFetcher _homePageFetcher = HomePageFetcher();
+  static final HomePageParser _homePageParser = HomePageParser();
 
-  final GenrePageFetcher _genrePageFetcher = GenrePageFetcher();
-  final GenrePageParser _genrePageParser = GenrePageParser();
+  static final GenrePageFetcher _genrePageFetcher = GenrePageFetcher();
+  static final GenrePageParser _genrePageParser = GenrePageParser();
 
-  final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
-  final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
+  static final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
+  static final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
 
-  final AnimeDetailsPageFetcher _animeDetailsPageFetcher =
+  static final AnimeDetailsPageFetcher _animeDetailsPageFetcher =
       AnimeDetailsPageFetcher();
-  final AnimeDetailsPageParser _animeDetailsPageParser =
+
+  static final AnimeDetailsPageParser _animeDetailsPageParser =
       AnimeDetailsPageParser();
 
-  final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher =
+  static final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher =
       EpisodeDetailsPageFetcher();
-  final EpisodeDetailsPageParser _episodeDetailsPageParser =
+
+  static final EpisodeDetailsPageParser _episodeDetailsPageParser =
       EpisodeDetailsPageParser();
 
   final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
-
+  
   /// This method fetch the animetube.site website home page with all
   /// info available. It returns a HomePageInfo object with the data
   /// and info available on website home page .
