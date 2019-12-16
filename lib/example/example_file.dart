@@ -8,6 +8,7 @@ void main() async {
     // This call returns a HomePageInfo instance or throws an exception
     // if somethings goes wrong,
     homePage = await api.getHomePageData(timeout: localTimeout);
+
     print('========== MOST RECENT ANIMES ==========');
     homePage.mostRecentAnimes.forEach( (animeItem) => print );
     print('========================================\n');

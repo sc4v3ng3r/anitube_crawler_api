@@ -21,8 +21,15 @@ class HomePageParser {
             .getElementsByClassName(ItemParser.ANI_ITEM);
 
         aniItemList.forEach((aniItem) {
-          dataList.add(ItemParser.parseItem(
-              aniItem, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC));
+          try {
+            dataList.add(ItemParser.parseItem(
+                aniItem, ItemParser.ANI_ITEM_IMG, ItemParser.ANI_CC));
+          }
+          on ParserException catch (ex){
+            print('HomePageParser::_parseAnimeItemContent ${ex.message}');
+          }
+
+
         });
       } catch (ex) {
         print(
@@ -38,15 +45,20 @@ class HomePageParser {
   List<Map<String, dynamic>> extractLatestEpisodes(String page) {
     var dataList = <Map<String, dynamic>>[];
     var body = parse(page).getElementsByTagName('body')[0];
-
     // container class changes
     var subContainer = body
         .getElementsByClassName(_HomePageHtmlNames.EPI_CONTAINER)[0]
         .getElementsByClassName(_HomePageHtmlNames.EPI_SUBCONTAINER)[0];
 
     subContainer.children.forEach((epiItem) {
-      dataList.add(ItemParser.parseItem(
-          epiItem, ItemParser.EPI_ITEM_IMG, ItemParser.EPI_CC));
+      try {
+        dataList.add(ItemParser.parseItem(
+            epiItem, ItemParser.EPI_ITEM_IMG, ItemParser.EPI_CC));
+      }
+      on ParserException catch (ex){
+        print('HomePageParser::extractLatestEpisodes ${ex.message} ');
+      }
+
     });
 
     return dataList;

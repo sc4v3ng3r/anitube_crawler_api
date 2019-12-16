@@ -9,10 +9,17 @@ class ItemParser {
 
   static Map<String, dynamic> parseItem(Element itemElement,
       String divImageClassName, String closedCaptionClassName) {
+
+    var pageLink;
+    var title;
+    var id;
+    var imageUrl;
+    var cc;
+
     try {
-      var pageLink = itemElement.children[0].attributes['href'];
-      var title = itemElement.children[0].attributes['title'];
-      var id = pageLink.split('.site/')[1];
+      pageLink = itemElement.children[0].attributes['href'];
+      title = itemElement.children[0].attributes['title'];
+      id = pageLink.split('.site/')[1];
 
       id = id.substring(0, id.length - 1);
 
@@ -20,12 +27,13 @@ class ItemParser {
           //divImageClassName
           .getElementsByClassName(divImageClassName)[0];
 
-      var imageUrl =
+      imageUrl =
           itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
 
       /// closedCaptionClassName
-      var cc =
-          itemImgDiv.getElementsByClassName(closedCaptionClassName)[0].text;
+      var elementList = itemImgDiv.getElementsByClassName(closedCaptionClassName);
+
+      cc = (elementList == null || elementList.isEmpty) ? "Legendado" : elementList[0].text;
 
       return {
         Item.ID: id,
@@ -38,6 +46,13 @@ class ItemParser {
 
     catch (ex) {
       print("ItemParser::parseItem error parsing item.\n $ex");
+      print('PageLink: $pageLink\n'
+          'ID: $id\n'
+          'title: $title\n'
+          'imageUrl: $imageUrl\n'
+          'CC: $cc'
+      );
+
       throw ParserException(message: "Error parsing item");
     }
 
