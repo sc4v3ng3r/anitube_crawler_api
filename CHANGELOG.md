@@ -1,3 +1,6 @@
+## [0.1.5] 15/12/2010
+* Bug fix. Handling properly ItemParse execptions.
+
 ## [0.1.4] 07/12/2019
 * Updating anime list, search by letter and genre list page paths.
 
