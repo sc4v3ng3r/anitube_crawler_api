@@ -1,4 +1,7 @@
-## [0.1.5] 15/12/2010
+## [0.2.5] 27/12/2019
+* EpisodeDetails model now brings animeId property.
+
+## [0.1.5] 15/12/2019
 * Bug fix. Handling properly ItemParse execptions.
 
 ## [0.1.4] 07/12/2019

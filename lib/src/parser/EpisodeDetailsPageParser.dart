@@ -23,9 +23,12 @@ class EpisodeDetailsPageParser {
       // getting next and previous episodes
       var episodesContainer =
           body.getElementsByClassName(_EpisodePageNames.NEXT_PREV_CONTAINER)[0];
-
+      
+      
       var previous = episodesContainer.children[0];
+      var animeId = episodesContainer.children[1].attributes['href'].split('/')[3].trim();
       var nextElement = html.getElementById(_EpisodePageNames.ID_NEXT_EPISODE);
+      
       var description = _extractDescription(body);
 
       return {
@@ -34,6 +37,7 @@ class EpisodeDetailsPageParser {
         EpisodeDetails.NEXT: _extractEpisodeId(nextElement),
         EpisodeDetails.PREVIOUS: _extractEpisodeId(previous),
         EpisodeDetails.DESCRIPTION: description,
+        EpisodeDetails.ANIME_ID: animeId,
         EpisodeDetails.REFERER: videoUrl,
       };
     } catch (ex) {
