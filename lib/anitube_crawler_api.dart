@@ -1,7 +1,6 @@
 library anitube_crawler_api;
 
 import 'package:dio/dio.dart';
-import 'package:flutter/rendering.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 
