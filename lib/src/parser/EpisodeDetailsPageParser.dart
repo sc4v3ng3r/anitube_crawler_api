@@ -15,12 +15,22 @@ class EpisodeDetailsPageParser {
       print('Episode Title ${episodeTitle.trim()}');
 
       // var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
-      var videoUrl =  videoSources[0].attributes['src'];
+      var videoUrl;
+      
+      if (videoSources.isNotEmpty)
+        videoUrl =  videoSources[0].attributes['src'];
+      else {
+        videoUrl = body
+       .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
+       .attributes['data-download'] + '&type=1';
+      }
 
-//    var videoUrl = body
-//        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
-//        .attributes['data-download'];
-//    print('Video Url: $videoUrl');
+      if (videoUrl == null || videoUrl.isEmpty){
+        videoUrl = _extractVideoUrlFromJScode(html);
+      }
+      
+      
+      print('Video Url: $videoUrl');
 
       // getting next and previous episodes
       var episodesContainer =
@@ -64,6 +74,23 @@ class EpisodeDetailsPageParser {
         '';
   }
 
+  String _extractVideoUrlFromJScode(Document html) {
+    var jsDiv = html.getElementById('video')
+    .getElementsByTagName('script')[5];
+
+    const URL_REGEXP = r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?"; 
+
+    var regExp = RegExp(URL_REGEXP);
+    var data = regExp.allMatches(jsDiv.innerHtml.trim());
+      final urls = data
+        .map((urlMatch) => jsDiv.innerHtml.substring(urlMatch.start, urlMatch.end + 1 ))
+        .toList();
+      print(urls);
+      
+    var link = urls[2].replaceAll('"' , '');
+    return link;
+  }
+
   // String _extractVideoPageUrl(Element element) =>
   //     element.getElementsByTagName('a')[0].attributes['href'];
 }
@@ -76,4 +103,5 @@ class _EpisodePageNames {
   static const LINK_DISABLE_CLASS = "linkdisabled";
   static const DESCRIPTION_CONTAINER = "pagEpiDesc";
   static const DIV_P1_ID = "p1";
+  static const PAGE_EPI_ABAS_CONTAINER = "pagEpiAbasContainer";
 }

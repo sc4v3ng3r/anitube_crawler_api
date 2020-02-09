@@ -38,13 +38,13 @@ void main() async {
      var episodeDetails = await api.getEpisodeDetails(animeDetails.episodes[0].id);
      print(episodeDetails);
 
-     // getting all genres available
+    //  // getting all genres available
     //  var genres = await api.getGenresAvailable(timeout: localTimeout);
-     // string list with all genres.
+    //  // string list with all genres.
     //  print(genres);
 
-     // search animes that starts with 'nar'
-     AnimeListPageInfo info = await api.search('nar', timeout: localTimeout);
+    //  // search animes that starts with 'nar'
+    //  AnimeListPageInfo info = await api.search('nar', timeout: localTimeout);
     //  print('current page number ${info.pageNumber}');
     //  print('Total Pages number: ${info.maxPageNumber}');
     //  print(info.animes);
