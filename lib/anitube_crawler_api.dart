@@ -1,5 +1,6 @@
 library anitube_crawler_api;
 
+import 'package:anitube_crawler_api/src/network/UserAgents.dart';
 import 'package:dio/dio.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';

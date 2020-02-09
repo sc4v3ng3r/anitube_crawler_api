@@ -14,6 +14,7 @@ class AnimeDetailsPageFetcher extends PageFetcher {
           sendTimeout: timeout,
           receiveTimeout: timeout,
           connectTimeout: timeout,
+          headers: { 'user-agent': UserAgents.generateAgent() }
         ),
       );
 

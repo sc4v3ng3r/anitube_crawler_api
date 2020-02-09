@@ -10,6 +10,7 @@ class GenrePageFetcher extends PageFetcher {
             sendTimeout: timeout,
             receiveTimeout: timeout,
             connectTimeout: timeout,
+            headers: { 'user-agent': UserAgents.generateAgent() }
           ));
       page = resp.data;
     } on DioError catch (ex) {

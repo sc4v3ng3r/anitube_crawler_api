@@ -13,6 +13,7 @@ class HomePageFetcher extends PageFetcher {
           connectTimeout: timeout,
           receiveTimeout: timeout,
           sendTimeout: timeout,
+          headers: { 'user-agent': UserAgents.generateAgent() }
         ),
       );
 
