@@ -8,12 +8,14 @@ class EpisodeDetailsPageParser {
       Document html = parse(page);
       var body = html.getElementsByTagName('body')[0];
 
+      var videoSources = html.getElementsByTagName('source');
+
       var episodeTitle =
           body.getElementsByClassName(_EpisodePageNames.TITLE_CLASS)[0].text;
       print('Episode Title ${episodeTitle.trim()}');
 
-      var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
-      var videoUrl = _extractVideoPageUrl(div);
+      // var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
+      var videoUrl =  videoSources[0].attributes['src'];
 
 //    var videoUrl = body
 //        .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
@@ -62,8 +64,8 @@ class EpisodeDetailsPageParser {
         '';
   }
 
-  String _extractVideoPageUrl(Element element) =>
-      element.getElementsByTagName('a')[0].attributes['href'];
+  // String _extractVideoPageUrl(Element element) =>
+  //     element.getElementsByTagName('a')[0].attributes['href'];
 }
 
 class _EpisodePageNames {

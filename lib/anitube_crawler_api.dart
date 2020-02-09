@@ -56,7 +56,7 @@ class AniTubeApi {
   static final EpisodeDetailsPageParser _episodeDetailsPageParser =
       EpisodeDetailsPageParser();
 
-  final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
+  // final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
   
   /// This method fetch the animetube.site website home page with all
   /// info available. It returns a HomePageInfo object with the data
@@ -148,11 +148,14 @@ class AniTubeApi {
         timeout: timeout);
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
-    var videoPage = await _videoPageFetcher
-        .getVideoPage(jsonData[EpisodeDetails.STREAM_URL], timeout: timeout);
 
-    jsonData[EpisodeDetails.STREAM_URL] =
-        VideoPageParser.getStreamUrl(videoPage);
+
+    // var videoPage = await _videoPageFetcher
+    //     .getVideoPage(jsonData[EpisodeDetails.STREAM_URL], timeout: timeout);
+
+    // jsonData[EpisodeDetails.STREAM_URL] =
+    //     VideoPageParser.getStreamUrl(videoPage);
+    
     return EpisodeDetails.fromJson(jsonData);
   }
 

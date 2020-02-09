@@ -11,27 +11,27 @@ void main() async {
      //This call returns a HomePageInfo instance or throws an exception
      //if somethings goes wrong,
     homePage = await api.getHomePageData(timeout: localTimeout);
-    print(homePage.latestEpisodes);
+    // print(homePage.latestEpisodes);
 
-     print('========== MOST RECENT ANIMES ${homePage.mostRecentAnimes.length} ==========');
-     homePage.mostRecentAnimes.forEach( (animeItem) => print(animeItem) );
-     print('========================================\n');
+    //  print('========== MOST RECENT ANIMES ${homePage.mostRecentAnimes.length} ==========');
+    //  homePage.mostRecentAnimes.forEach( (animeItem) => print(animeItem) );
+    //  print('========================================\n');
 
-     print('========== MOST SHOWED ANIMES ${homePage.mostShowedAnimes} ==========');
-     homePage.mostShowedAnimes.forEach( (animeItem) => print(animeItem) );
-     print('========================================\n');
+    //  print('========== MOST SHOWED ANIMES ${homePage.mostShowedAnimes} ==========');
+    //  homePage.mostShowedAnimes.forEach( (animeItem) => print(animeItem) );
+    //  print('========================================\n');
 
-     print('========== LATEST EPISODES ${homePage.latestEpisodes} =============');
-     homePage.latestEpisodes .forEach( (episodeItem) => print(episodeItem) );
-     print('========================================\n');
+    //  print('========== LATEST EPISODES ${homePage.latestEpisodes} =============');
+    //  homePage.latestEpisodes .forEach( (episodeItem) => print(episodeItem) );
+    //  print('========================================\n');
 
 
  //     getting anime info details
      AnimeDetails animeDetails = await api.getAnimeDetails( homePage.mostShowedAnimes[2].id,
        timeout: localTimeout);
      // shows a lot of property and values.
-     print('===== DETAILS OF ${animeDetails.title} =====');
-     print(animeDetails);
+    //  print('===== DETAILS OF ${animeDetails.title} =====');
+    //  print(animeDetails);
 
      // getting episode details by id. Returning data like streamingUrl.
      print("---------------Getting EPISODE ID ${animeDetails.episodes[0].id}");
@@ -39,15 +39,15 @@ void main() async {
      print(episodeDetails);
 
      // getting all genres available
-     var genres = await api.getGenresAvailable(timeout: localTimeout);
+    //  var genres = await api.getGenresAvailable(timeout: localTimeout);
      // string list with all genres.
-     print(genres);
+    //  print(genres);
 
      // search animes that starts with 'nar'
      AnimeListPageInfo info = await api.search('nar', timeout: localTimeout);
-     print('current page number ${info.pageNumber}');
-     print('Total Pages number: ${info.maxPageNumber}');
-     print(info.animes);
+    //  print('current page number ${info.pageNumber}');
+    //  print('Total Pages number: ${info.maxPageNumber}');
+    //  print(info.animes);
   }
 
   on CrawlerApiException catch (ex){
