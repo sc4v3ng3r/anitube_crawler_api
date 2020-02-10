@@ -84,7 +84,7 @@ class EpisodeDetailsPageParser {
         .toList();
       print(urls);
       
-    var link = urls[2].replaceAll('"' , '');
+    var link = urls[1].replaceAll('"' , '');
     link = link.replaceAll( '\'' , '');
     return link;
   }
