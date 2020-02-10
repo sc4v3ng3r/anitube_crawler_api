@@ -20,16 +20,14 @@ class EpisodeDetailsPageParser {
       if (videoSources.isNotEmpty)
         videoUrl =  videoSources[0].attributes['src'];
       else {
-        videoUrl = body
-       .getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
-       .attributes['data-download'] + '&type=1';
-      }
-
-      if (videoUrl == null || videoUrl.isEmpty){
         videoUrl = _extractVideoUrlFromJScode(html);
       }
       
-      
+      if (videoUrl == null || videoUrl.isEmpty){
+        videoUrl = body.getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)
+          [0].attributes['data-download'] + '&type=1';
+      }
+
       print('Video Url: $videoUrl');
 
       // getting next and previous episodes
