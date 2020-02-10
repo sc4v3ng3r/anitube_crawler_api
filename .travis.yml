@@ -3,7 +3,7 @@ dart:
   - stable
 os:
   - linux
-sudo: false
+sudo: true
 
 addons:
   apt:
@@ -11,7 +11,7 @@ addons:
       - ubuntu-toolchain-r-test # you need this source to get the right version of libstdc++6
     packages:
       - libstdc++6
-      - fonts-droid
+      # - fonts-droid
 install:
   - echo 'Avoid default Travis CI install step' # this is to avoid an error with pub in Travis
 
