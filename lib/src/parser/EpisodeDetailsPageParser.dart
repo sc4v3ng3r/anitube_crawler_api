@@ -22,7 +22,7 @@ class EpisodeDetailsPageParser {
       else {
         videoUrl = _extractVideoUrlFromJScode(html);
       }
-      
+
       if (videoUrl == null || videoUrl.isEmpty){
         videoUrl = body.getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)
           [0].attributes['data-download'] + '&type=1';
@@ -33,7 +33,6 @@ class EpisodeDetailsPageParser {
       // getting next and previous episodes
       var episodesContainer =
           body.getElementsByClassName(_EpisodePageNames.NEXT_PREV_CONTAINER)[0];
-      
       
       var previous = episodesContainer.children[0];
       var animeId = episodesContainer.children[1].attributes['href'].split('/')[3].trim();
@@ -86,6 +85,7 @@ class EpisodeDetailsPageParser {
       print(urls);
       
     var link = urls[2].replaceAll('"' , '');
+    link = link.replaceAll( '\'' , '');
     return link;
   }
 
