@@ -1,7 +1,7 @@
 name: anitube_crawler_api
 description: Anitube website crawler API. This API allows you to get data and parse them
   from the brazilian anime website anitube.site.
-version: 0.2.5
+version: 0.2.6
 author: Marcos Boaventura <scavenger.gnu@gmail.com>
 homepage: https://github.com/sc4v3ng3r/anitube_crawler_api
 

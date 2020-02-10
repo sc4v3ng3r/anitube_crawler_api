@@ -1,3 +1,7 @@
+## [0.2.6] 10/02/2020
+* get video stream url adpted to the new changes in anitube.site webpage.
+* adding Travis CI.
+
 ## [0.2.5] 27/12/2019
 * EpisodeDetails model now brings animeId property.
 

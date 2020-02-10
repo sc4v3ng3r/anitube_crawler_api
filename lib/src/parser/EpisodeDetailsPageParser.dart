@@ -12,7 +12,7 @@ class EpisodeDetailsPageParser {
 
       var episodeTitle =
           body.getElementsByClassName(_EpisodePageNames.TITLE_CLASS)[0].text;
-      print('Episode Title ${episodeTitle.trim()}');
+      //print('Episode Title ${episodeTitle.trim()}');
 
       // var div = html.getElementById(_EpisodePageNames.DIV_P1_ID);
       var videoUrl;
@@ -28,7 +28,7 @@ class EpisodeDetailsPageParser {
           [0].attributes['data-download'] + '&type=1';
       }
 
-      print('Video Url: $videoUrl');
+      //print('Video Url: $videoUrl');
 
       // getting next and previous episodes
       var episodesContainer =
@@ -82,7 +82,7 @@ class EpisodeDetailsPageParser {
       final urls = data
         .map((urlMatch) => jsDiv.innerHtml.substring(urlMatch.start, urlMatch.end + 1 ))
         .toList();
-      print(urls);
+      //print(urls);
       
     var link = urls[1].replaceAll('"' , '');
     link = link.replaceAll( '\'' , '');
