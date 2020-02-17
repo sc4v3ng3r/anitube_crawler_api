@@ -1,3 +1,8 @@
+## [0.2.6+1] 17/02/2020
+ * Solving fail in stream link parsing. The links were starting with "le:" and "ge:" strings.
+ * VideoPageParser class deprecated.
+ * Modifying the tests to be aware of this bad behavior.
+
 ## [0.2.6] 10/02/2020
 * get video stream url adpted to the new changes in anitube.site webpage.
 * adding Travis CI.

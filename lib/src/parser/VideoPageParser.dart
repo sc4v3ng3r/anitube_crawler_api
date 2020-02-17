@@ -1,6 +1,7 @@
 part of anitube_crawler_api;
 
 
+@deprecated 
 class VideoPageParser {
   
   

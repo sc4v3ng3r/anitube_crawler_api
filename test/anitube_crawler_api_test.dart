@@ -104,7 +104,6 @@ void main() {
         homePage.mostShowedAnimes[0].id,
          timeout: localTimeout
       );
-
     });
 
     test('Test getting animes  details [REDUDANCY]', () {
@@ -115,7 +114,8 @@ void main() {
        var data = await api.getEpisodeDetails(animeDetails.episodes[0].id,
         timeout: localTimeout);
         expect(data != null, true);
-        expect( data.streamingUrl != null, true);
+        expect( ((data.streamingUrl != null) ), true);
+        expect( data.streamingUrl.startsWith('http:')  || data.streamingUrl.startsWith('https:'), true);
         expect( data.referer != null, true );
     });
   });

@@ -26,6 +26,11 @@ class EpisodeDetailsPageParser {
       if (videoUrl == null || videoUrl.isEmpty){
         videoUrl = body.getElementsByClassName(_EpisodePageNames.ACTION_DOWNLOAD_CLASS)
           [0].attributes['data-download'] + '&type=1';
+      } 
+      
+      else {
+        // grant only "https://domainlink" string format.
+        
       }
 
       //print('Video Url: $videoUrl');
@@ -77,8 +82,8 @@ class EpisodeDetailsPageParser {
 
     const URL_REGEXP = r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?"; 
 
-    var regExp = RegExp(URL_REGEXP);
-    var data = regExp.allMatches(jsDiv.innerHtml.trim());
+    var regExp = RegExp(URL_REGEXP,);
+    var data = regExp.allMatches(jsDiv.innerHtml.trim(),);
       final urls = data
         .map((urlMatch) => jsDiv.innerHtml.substring(urlMatch.start, urlMatch.end + 1 ))
         .toList();
@@ -86,6 +91,9 @@ class EpisodeDetailsPageParser {
       
     var link = urls[1].replaceAll('"' , '');
     link = link.replaceAll( '\'' , '');
+    if (link.startsWith("le: ") )
+      link = link.substring(4, );
+
     return link;
   }
 
