@@ -80,20 +80,23 @@ class EpisodeDetailsPageParser {
     var jsDiv = html.getElementById('video')
     .getElementsByTagName('script')[5];
 
-    const URL_REGEXP = r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?"; 
+    const URL_REGEXP = r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._,\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_,\+.~#?&\/=]*)?";
+    // const regex = ' /[file\:\ ]/';
+
 
     var regExp = RegExp(URL_REGEXP,);
-    var data = regExp.allMatches(jsDiv.innerHtml.trim(),);
+    var data = regExp.allMatches(jsDiv.innerHtml,);
       final urls = data
         .map((urlMatch) => jsDiv.innerHtml.substring(urlMatch.start, urlMatch.end + 1 ))
         .toList();
-      //print(urls);
+      
       
     var link = urls[1].replaceAll('"' , '');
     link = link.replaceAll( '\'' , '');
     if (link.startsWith("le: ") )
       link = link.substring(4, );
 
+    print('The link is $link');
     return link;
   }
 
