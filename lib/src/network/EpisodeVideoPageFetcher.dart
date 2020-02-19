@@ -9,7 +9,6 @@ class EpisodeVideoPageFetcher extends PageFetcher {
     try {
       Response response = await dio.get(url,
           options: Options(
-            connectTimeout: timeout,
             receiveTimeout: timeout,
             sendTimeout: timeout,
             headers: { 'user-agent': UserAgents.generateAgent() }

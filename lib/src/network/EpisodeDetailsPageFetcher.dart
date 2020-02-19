@@ -10,7 +10,6 @@ class EpisodeDetailsPageFetcher extends PageFetcher {
     try {
       Response response = await dio.get(AnitubePath.BASE_PATH + episodeId,
           options: Options(
-            connectTimeout: timeout,
             receiveTimeout: timeout,
             sendTimeout: timeout,
             headers: { 'user-agent': UserAgents.generateAgent() }

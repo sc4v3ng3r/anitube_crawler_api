@@ -13,7 +13,6 @@ class AnimeDetailsPageFetcher extends PageFetcher {
         options: Options(
           sendTimeout: timeout,
           receiveTimeout: timeout,
-          connectTimeout: timeout,
           headers: { 'user-agent': UserAgents.generateAgent() }
         ),
       );

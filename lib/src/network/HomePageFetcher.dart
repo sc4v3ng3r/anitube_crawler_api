@@ -10,7 +10,6 @@ class HomePageFetcher extends PageFetcher {
       Response resp = await _dio.get(
         AnitubePath.HOME_PAGE,
         options: Options(
-          connectTimeout: timeout,
           receiveTimeout: timeout,
           sendTimeout: timeout,
           headers: { 'user-agent': UserAgents.generateAgent() }

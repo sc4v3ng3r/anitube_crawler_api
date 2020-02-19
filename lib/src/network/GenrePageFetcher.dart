@@ -9,7 +9,6 @@ class GenrePageFetcher extends PageFetcher {
           options: Options(
             sendTimeout: timeout,
             receiveTimeout: timeout,
-            connectTimeout: timeout,
             headers: { 'user-agent': UserAgents.generateAgent() }
           ));
       page = resp.data;

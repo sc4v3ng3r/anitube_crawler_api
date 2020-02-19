@@ -17,7 +17,6 @@ class AnimeListPageFetcher extends PageFetcher {
     try {
       Response response = await dio.get(path,
           options: Options(
-            connectTimeout: timeout,
             receiveTimeout: timeout,
             sendTimeout: timeout,
             headers: { 'user-agent': UserAgents.generateAgent() }
@@ -72,7 +71,6 @@ class AnimeListPageFetcher extends PageFetcher {
     try {
       Response response = await dio.get(path,
           options: Options(
-            connectTimeout: timeout,
             receiveTimeout: timeout,
             sendTimeout: timeout,
           ));
