@@ -20,7 +20,7 @@ To use this plugin, add `anitube_crawler_api` as a [dependency in your pubspec.y
 
 ```yaml
   dependencies:
-    anitube_crawler_api: 0.2.6+1
+    anitube_crawler_api: 0.2.6+2
 ```
 ## The API
  The main API is very simple. You just need to use the ```AniTubeApi``` class methods to get all the data that you want.
