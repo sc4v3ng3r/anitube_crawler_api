@@ -14,6 +14,7 @@ void main() {
     setUp(() async =>
         homePage = await api.getHomePageData(timeout: localTimeout));
     test('When encountred home page info data', () {
+      
       expect(((homePage != null)), true);
     });
 
