@@ -1,3 +1,7 @@
+## [0.2.6+2] 19/02/2020
+* Updating dependencies
+* Adding README documentation.
+
 ## [0.2.6+1] 17/02/2020
  * Solving fail in stream link parsing. The links were starting with "le:" and "ge:" strings.
  * VideoPageParser class deprecated.
