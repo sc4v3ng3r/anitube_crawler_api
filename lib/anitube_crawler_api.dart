@@ -22,13 +22,13 @@ part 'src/parser/AnimeDetailsPageParser.dart';
 part 'src/parser/EpisodeDetailsPageParser.dart';
 part 'src/parser/VideoPageParser.dart';
 
-part 'src/model/AnimeItem.dart';
-part 'src/model/HomePageInfo.dart';
-part 'src/model/AnimeListPageInfo.dart';
-part 'src/model/EpisodeItem.dart';
-part 'src/model/Item.dart';
-part 'src/model/AnimeDetails.dart';
-part 'src/model/EpisodeDetails.dart';
+part 'src/domain/entities/AnimeItem.dart';
+part 'src/domain/entities/HomePageInfo.dart';
+part 'src/domain/entities/AnimeListPageInfo.dart';
+part 'src/domain/entities/EpisodeItem.dart';
+part 'src/domain/entities/Item.dart';
+part 'src/domain/entities/AnimeDetails.dart';
+part 'src/domain/entities/EpisodeDetails.dart';
 part 'src/exception/CrawlerApiException.dart';
 
 ///
@@ -42,7 +42,8 @@ class AniTubeApi {
   static final GenrePageFetcher _genrePageFetcher = GenrePageFetcher();
   static final GenrePageParser _genrePageParser = GenrePageParser();
 
-  static final AnimeListPageFetcher _animeListPageFetcher = AnimeListPageFetcher();
+  static final AnimeListPageFetcher _animeListPageFetcher =
+      AnimeListPageFetcher();
   static final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
 
   static final AnimeDetailsPageFetcher _animeDetailsPageFetcher =
@@ -58,7 +59,7 @@ class AniTubeApi {
       EpisodeDetailsPageParser();
 
   // final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
-  
+
   /// This method fetch the animetube.site website home page with all
   /// info available. It returns a HomePageInfo object with the data
   /// and info available on website home page .
@@ -150,13 +151,12 @@ class AniTubeApi {
 
     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
 
-
     // var videoPage = await _videoPageFetcher
     //     .getVideoPage(jsonData[EpisodeDetails.STREAM_URL], timeout: timeout);
 
     // jsonData[EpisodeDetails.STREAM_URL] =
     //     VideoPageParser.getStreamUrl(videoPage);
-    
+
     return EpisodeDetails.fromJson(jsonData);
   }
 
