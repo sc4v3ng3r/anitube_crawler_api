@@ -1,9 +1,12 @@
-part of anitube_crawler_api;
+import 'EpisodeItem.dart';
+
+// part of anitube_crawler_api;
 
 /// This class holds read only details information
 /// about a specific anime. All these information are
 /// provided by animetube.site brazilian website and some of
 /// them could be wrong or even not available.
+
 class AnimeDetails {
   static const TITLE = "titulo";
   static const AUTHOR = "Autor";

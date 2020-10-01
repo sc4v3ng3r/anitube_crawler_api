@@ -1,4 +1,6 @@
-part of anitube_crawler_api;
+import 'EpisodeItem.dart';
+import 'AnimeItem.dart';
+// part of anitube_crawler_api;
 
 /// This class holds read only information about the anitube.site website
 /// home page. These infos are the most recent animes,

@@ -1,4 +1,4 @@
-part of anitube_crawler_api;
+// part of anitube_crawler_api;
 
 /// This is the base class for AnimeItem and EpisodeItem implementation.
 /// actually both classes are equals to Item class only the name is different

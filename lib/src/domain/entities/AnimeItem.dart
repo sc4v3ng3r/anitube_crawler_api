@@ -1,4 +1,6 @@
-part of anitube_crawler_api;
+import 'Item.dart';
+
+// part of anitube_crawler_api;
 
 /// Item representation for an anime.
 class AnimeItem extends Item {

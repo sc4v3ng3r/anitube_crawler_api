@@ -1,4 +1,5 @@
-part of anitube_crawler_api;
+import 'AnimeItem.dart';
+// part of anitube_crawler_api;
 
 /// This class holds read only info about animes list page
 /// from anitube.site brazilian website.
