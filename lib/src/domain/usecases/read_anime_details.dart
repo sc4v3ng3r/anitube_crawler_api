@@ -1,4 +1,3 @@
-import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_repository.dart';
 import 'package:flutter/foundation.dart';
@@ -15,7 +14,8 @@ class ReadAnimeDetails implements IReadAnimeDetails {
   ReadAnimeDetails({@required this.parser, @required this.repository});
 
   @override
-  Future<AnimeDetails> getAnimeDetails({@required String animeId}) {
-    throw UnimplementedError();
+  Future<AnimeDetails> getAnimeDetails({@required String animeId}) async {
+    final html = await repository.getAnimeDetails(animeId);
+    return parser.parseHTML(html);
   }
 }
