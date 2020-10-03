@@ -1,15 +1,12 @@
-import 'dart:io';
-import 'package:anitube_crawler_api/anitube_crawler_api.dart';
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_repository.dart';
 import 'package:anitube_crawler_api/src/domain/usecases/read_anime_details.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_anime_details_parser.dart';
-import 'package:flutter/material.dart';
+import 'package:anitube_crawler_api/test_resources/anime_details_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
-import '../../mock_data/paths.dart';
 
 class MockedRepository extends Mock implements IAnimeDetailsRepository {}
 
@@ -33,9 +30,8 @@ main() {
     test(
       "Read anime details with success",
       () async {
-        when(repository.getAnimeDetails(animeId)).thenAnswer(
-            (realInvocation) async =>
-                File(MOCKED_ANIME_DETAILS_HTML_PAGE).readAsStringSync());
+        when(repository.getAnimeDetails(animeId))
+            .thenAnswer((realInvocation) async => anime_details_page_html);
 
         final details =
             await readAnimeDetails.getAnimeDetails(animeId: animeId);

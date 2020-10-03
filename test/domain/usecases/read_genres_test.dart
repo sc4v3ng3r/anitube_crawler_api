@@ -12,24 +12,25 @@ class MockedRepository extends Mock implements IGenreRepository {}
 
 // class MockedAPI extends Mock implements IHTMLPageFetcher {}
 
-// ignore: non_constant_identifier_names
+// // ignore: non_constant_identifier_names
 main() {
-  // group("READ GENRES USE CASE TEST", () {
-  //   IGenreRepository repository;
-  //   ReadGenres useCase;
-  //   IHTMLParser<List<Genre>> parser;
+  test("No tests available yet", () => expect(true, true));
+//   // group("READ GENRES USE CASE TEST", () {
+//   //   IGenreRepository repository;
+//   //   ReadGenres useCase;
+//   //   IHTMLParser<List<Genre>> parser;
 
-  //   setUp(() {
-  //     repository = MockedRepository();
-  //     parser = AnitubeGenreParser();
-  //     useCase = ReadGenres(repository, parser);
-  //   });
+//   //   setUp(() {
+//   //     repository = MockedRepository();
+//   //     parser = AnitubeGenreParser();
+//   //     useCase = ReadGenres(repository, parser);
+//   //   });
 
-  //   test("parsing genres with success", () async {
-  //     final file = File(GENRE_PAGE_MOCK_PATH);
+//   //   test("parsing genres with success", () async {
+//   //     final file = File(GENRE_PAGE_MOCK_PATH);
 
-  //     final list = parser.parseHTML(file.readAsStringSync());
-  //     expect(list, isA<List<Genre>>());
-  //   });
-  // });
+//   //     final list = parser.parseHTML(file.readAsStringSync());
+//   //     expect(list, isA<List<Genre>>());
+//   //   });
+//   // });
 }
