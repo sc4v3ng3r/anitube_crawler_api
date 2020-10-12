@@ -1,8 +1,9 @@
 import 'package:anitube_crawler_api/src/domain/entities/genre.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
+import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_genres_parser.dart';
 import 'package:anitube_crawler_api/test_resources/genres_page.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 main() {
   IHTMLParser<List<Genre>> parser;
@@ -20,6 +21,7 @@ main() {
   });
 
   test("Running anitube_genre_parser with ParserException", () {
-    expect(() => parser.parseHTML(null), throwsException);
+    expect(
+        () => parser.parseHTML(null), throwsA(TypeMatcher<ParserException>()));
   });
 }

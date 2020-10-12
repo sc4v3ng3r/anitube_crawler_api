@@ -1,6 +1,7 @@
+import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_home_page_parser.dart';
 import 'package:anitube_crawler_api/test_resources/home_page.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
 
 void main() {
@@ -21,6 +22,7 @@ void main() {
   });
 
   test("Home page parser failure", () {
-    expect(() => parser.parseHTML(null), throwsException);
+    expect(
+        () => parser.parseHTML(null), throwsA(TypeMatcher<ParserException>()));
   });
 }

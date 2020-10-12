@@ -4,7 +4,7 @@ import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_reposi
 import 'package:anitube_crawler_api/src/domain/usecases/read_anime_details.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_anime_details_parser.dart';
 import 'package:anitube_crawler_api/test_resources/anime_details_page.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
 
@@ -19,12 +19,19 @@ main() {
 
   group("Read anime details usecase test group", () {
     String animeId;
+
     setUp(() {
       repository = MockedRepository();
       parser = AnitubeAnimeDetailsParser();
       readAnimeDetails =
           ReadAnimeDetails(parser: parser, repository: repository);
       animeId = "1234";
+    });
+
+    tearDown(() {
+      readAnimeDetails = null;
+      repository = null;
+      parser = null;
     });
 
     test(
@@ -47,7 +54,7 @@ main() {
             .thenThrow(NetworkException(message: "No network available"));
 
         expect(readAnimeDetails.getAnimeDetails(animeId: animeId),
-            throwsException);
+            throwsA(TypeMatcher<NetworkException>()));
       },
     );
   });
