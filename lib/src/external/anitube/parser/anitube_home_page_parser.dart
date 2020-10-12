@@ -2,6 +2,8 @@ import 'package:anitube_crawler_api/src/domain/entities/Item.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
+import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_elements_name.dart';
+import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_item_parser_utils.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeItem.dart';
@@ -40,17 +42,17 @@ class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
         pageDocument = parse(page);
         var body = pageDocument.getElementsByTagName('body')[0];
         var containers =
-            body.getElementsByClassName(_HomePageHtmlNames.ANI_CONTAINER);
+            body.getElementsByClassName(AnitubeElementName.ANI_CONTAINER);
 
         // most recents aniItems
         var aniItemList = containers[category.index]
             .children[1]
-            .getElementsByClassName(_HomePageHtmlNames.ANI_ITEM);
+            .getElementsByClassName(AnitubeElementName.ANI_ITEM);
 
         aniItemList.forEach((aniItem) {
           try {
-            dataList.add(_parseItem(aniItem, _HomePageHtmlNames.ANI_ITEM_IMG,
-                _HomePageHtmlNames.ANI_CC));
+            dataList.add(parseItem(aniItem, AnitubeElementName.ANI_ITEM_IMG,
+                AnitubeElementName.ANI_CC));
           } on ParserException catch (ex) {
             print('HomePageParser::_parseAnimeItemContent ${ex.message}');
           }
@@ -71,13 +73,13 @@ class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
     var body = parse(page).getElementsByTagName('body')[0];
     // container class changes
     var subContainer = body
-        .getElementsByClassName(_HomePageHtmlNames.EPI_CONTAINER)[0]
-        .getElementsByClassName(_HomePageHtmlNames.EPI_SUBCONTAINER)[0];
+        .getElementsByClassName(AnitubeElementName.EPI_CONTAINER)[0]
+        .getElementsByClassName(AnitubeElementName.EPI_SUBCONTAINER)[0];
 
     subContainer.children.forEach((epiItem) {
       try {
-        dataList.add(_parseItem(epiItem, _HomePageHtmlNames.EPI_ITEM_IMG,
-            _HomePageHtmlNames.EPI_CC));
+        dataList.add(parseItem(epiItem, AnitubeElementName.EPI_ITEM_IMG,
+            AnitubeElementName.EPI_CC));
       } on ParserException catch (ex) {
         print('HomePageParser::extractLatestEpisodes ${ex.message} ');
       }
@@ -100,67 +102,4 @@ class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
   List<Map<String, dynamic>> _extractDayRelease(String page) =>
       _parseAnimeItemContent(page,
           category: _HomePageAnimeCategory.DAY_RELEASE);
-
-  Map<String, dynamic> _parseItem(Element itemElement, String divImageClassName,
-      String closedCaptionClassName) {
-    var pageLink;
-    var title;
-    var id;
-    var imageUrl;
-    var cc;
-
-    try {
-      pageLink = itemElement.children[0].attributes['href'];
-      title = itemElement.children[0].attributes['title'];
-      id = pageLink.split('.site/')[1];
-
-      id = id.substring(0, id.length - 1);
-
-      var itemImgDiv = itemElement.children[0]
-          //divImageClassName
-          .getElementsByClassName(divImageClassName)[0];
-
-      imageUrl = itemImgDiv.getElementsByTagName('img')[0].attributes['src'];
-
-      /// closedCaptionClassName
-      var elementList =
-          itemImgDiv.getElementsByClassName(closedCaptionClassName);
-
-      cc = (elementList == null || elementList.isEmpty)
-          ? "Legendado"
-          : elementList[0].text;
-
-      return {
-        Item.ID: id,
-        Item.TITLE: title,
-        Item.PAGE_URL: pageLink,
-        Item.IMAGE_URL: imageUrl,
-        Item.CC: cc,
-      };
-    } catch (ex) {
-      print("ItemParser::parseItem error parsing item.\n $ex");
-      print('PageLink: $pageLink\n'
-          'ID: $id\n'
-          'title: $title\n'
-          'imageUrl: $imageUrl\n'
-          'CC: $cc');
-
-      throw ParserException(message: "Error parsing item");
-    }
-  }
-}
-
-class _HomePageHtmlNames {
-  static const ANI_CONTAINER = "aniContainer"; // class
-  static const MAIN_CAROUSEL = "main-carousel"; // class
-  static const FLICK_SLIDER = "flickity-slider"; // class
-  static const FLICKITY_VIEWPORT = "flickity-viewport"; // class
-
-  static const EPI_CONTAINER = "epiContainer";
-  static const EPI_SUBCONTAINER = "epiSubContainer";
-  static const ANI_ITEM = "aniItem"; // class
-  static const ANI_ITEM_IMG = "aniItemImg";
-  static const EPI_ITEM_IMG = "epiItemImg";
-  static const ANI_CC = "aniCC";
-  static const EPI_CC = "epiCC";
 }

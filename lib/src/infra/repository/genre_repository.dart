@@ -1,4 +1,5 @@
 import 'package:anitube_crawler_api/src/domain/irepository/igenre_repository.dart';
+import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
 import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
 
 class GenreRepository implements IGenreRepository {
@@ -7,6 +8,6 @@ class GenreRepository implements IGenreRepository {
   GenreRepository(this.pageFetcher);
   @override
   Future<String> getGenres() {
-    return pageFetcher.downloadHTMLPage();
+    return pageFetcher.downloadHTMLPage(url: AnitubePath.GENRES_PAGE);
   }
 }

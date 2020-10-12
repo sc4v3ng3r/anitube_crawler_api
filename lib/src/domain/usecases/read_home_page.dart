@@ -1,5 +1,5 @@
 import 'package:anitube_crawler_api/src/domain/irepository/ihome_repository.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 import '../entities/HomePageInfo.dart';
 

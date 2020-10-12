@@ -1,25 +1,24 @@
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
 import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
 import 'package:anitube_crawler_api/src/network/UserAgents.dart';
 import 'package:dio/dio.dart';
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
+import 'package:meta/meta.dart';
 
-class AnitubeDataSource implements IHTMLPageFetcher {
+class AnitubeDataSource extends IHTMLPageFetcher {
   final Dio httpClient;
 
-  AnitubeDataSource(this.httpClient) {
+  AnitubeDataSource(this.httpClient, {String url}) {
     httpClient.interceptors
         .add(InterceptorsWrapper(onRequest: (requestOptions) {
       requestOptions.headers['user-agent'] = UserAgents.generateAgent();
     }));
   }
-  @override
-  String get url => AnitubePath.GENRES_PAGE;
 
   @override
-  Future<String> downloadHTMLPage({String url, int pageNumber}) async {
+  Future<String> downloadHTMLPage(
+      {@required String url, int pageNumber}) async {
     try {
-      final response = await httpClient.get(url ?? this.url);
+      final response = await httpClient.get(url);
       return response.data;
     } on DioError catch (error) {
       throw NetworkException(message: error.response.statusMessage);

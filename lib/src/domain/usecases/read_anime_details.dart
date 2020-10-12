@@ -1,6 +1,6 @@
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_repository.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
 
 abstract class IReadAnimeDetails {
