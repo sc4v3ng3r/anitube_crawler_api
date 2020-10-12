@@ -4,7 +4,6 @@ import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.da
 import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-
 import 'package:anitube_crawler_api/src/domain/entities/AnimeItem.dart';
 import 'package:anitube_crawler_api/src/domain/entities/EpisodeItem.dart';
 
