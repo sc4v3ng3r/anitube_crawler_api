@@ -1,3 +1,4 @@
+import '../../test_resources/anime_details_page.dart';
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_repository.dart';
@@ -6,8 +7,6 @@ import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_anime_de
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
-
-import '../../test_resources/anime_details_page.dart';
 
 class MockedRepository extends Mock implements IAnimeDetailsRepository {}
 

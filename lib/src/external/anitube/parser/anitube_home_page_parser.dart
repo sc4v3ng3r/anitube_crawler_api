@@ -11,8 +11,6 @@ import '../../../domain/entities/EpisodeItem.dart';
 enum _HomePageAnimeCategory { MOST_SHOWED, MOST_RECENT, DAY_RELEASE }
 
 class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
-  AnitubeHomePageParser();
-
   @override
   HomePageInfo parseHTML(String html) {
     if (html == null)

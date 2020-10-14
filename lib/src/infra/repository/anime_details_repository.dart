@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 import '../../domain/irepository/ianime_details_repository.dart';
 import '../../external/anitube/anitube_path.dart';
 import '../../infra/data_source/page_fetcher.dart';
