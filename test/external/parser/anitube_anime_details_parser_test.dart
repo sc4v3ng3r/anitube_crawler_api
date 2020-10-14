@@ -1,7 +1,7 @@
 import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_anime_details_parser.dart';
-import 'package:anitube_crawler_api/test_resources/anime_details_page.dart';
 import 'package:flutter_test/flutter_test.dart';
+import '../../test_resources/anime_details_page.dart';
 
 main() {
   AnitubeAnimeDetailsParser parser;

@@ -2,9 +2,10 @@ import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.da
 import 'package:anitube_crawler_api/src/domain/usecases/read_episode_details.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_episode_details_page_parser.dart';
 import 'package:anitube_crawler_api/src/infra/repository/episode_details_repository.dart';
-import 'package:anitube_crawler_api/test_resources/episode_details_page.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import '../../test_resources/episode_details_page.dart';
 
 class MockedRepository extends Mock implements EpisodeRepository {}
 

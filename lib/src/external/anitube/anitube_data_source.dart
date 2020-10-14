@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import '../../infra/data_source/page_fetcher.dart';
-import '../../network/UserAgents.dart';
 import '../../domain/exceptions/CrawlerApiException.dart';
+import '../../infra/data_source/UserAgents.dart';
 
 class AnitubeDataSource extends IHTMLPageFetcher {
   final Dio httpClient;

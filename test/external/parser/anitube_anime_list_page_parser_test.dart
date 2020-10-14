@@ -1,8 +1,9 @@
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/domain/entities/AnimeListPageInfo.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anime_list_page_parser.dart';
-import 'package:anitube_crawler_api/test_resources/anime_list_page.dart';
 import 'package:test/test.dart';
+
+import '../../test_resources/anime_list_page.dart';
 
 main() {
   AnimeListPageParser parser;

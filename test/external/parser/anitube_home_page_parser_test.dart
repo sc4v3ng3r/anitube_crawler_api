@@ -1,8 +1,8 @@
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_home_page_parser.dart';
-import 'package:anitube_crawler_api/test_resources/home_page.dart';
 import 'package:test/test.dart';
 import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
+import '../../test_resources/home_page.dart';
 
 void main() {
   AnitubeHomePageParser parser;

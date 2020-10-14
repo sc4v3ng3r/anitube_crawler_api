@@ -2,8 +2,9 @@ import 'package:anitube_crawler_api/src/domain/entities/genre.dart';
 import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_genres_parser.dart';
-import 'package:anitube_crawler_api/test_resources/genres_page.dart';
 import 'package:test/test.dart';
+
+import '../../test_resources/genres_page.dart';
 
 main() {
   IHTMLParser<List<Genre>> parser;
