@@ -1,9 +1,9 @@
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:anitube_crawler_api/src/domain/entities/Item.dart';
-import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
-import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
+import '../../../domain/entities/Item.dart';
+import '../../../domain/exceptions/CrawlerApiException.dart';
+import '../../../domain/entities/AnimeDetails.dart';
+import '../../../domain/entities/parser/ihtml_parser.dart';
 import '../anitube_path.dart';
 
 class AnitubeAnimeDetailsParser implements IHTMLParser<AnimeDetails> {

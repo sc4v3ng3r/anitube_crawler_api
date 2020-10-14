@@ -1,9 +1,9 @@
-import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/ihome_repository.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
-import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
 import 'package:flutter/foundation.dart';
+import '../../domain/entities/HomePageInfo.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/ihome_repository.dart';
+import '../../external/anitube/anitube_path.dart';
+import '../../infra/data_source/page_fetcher.dart';
 
 class HomePageRepository implements IHomeRepository {
   final IHTMLPageFetcher dataSource;

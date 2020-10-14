@@ -1,13 +1,12 @@
-import 'package:anitube_crawler_api/src/domain/entities/Item.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
-import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
-import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_elements_name.dart';
-import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_item_parser_utils.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:anitube_crawler_api/src/domain/entities/AnimeItem.dart';
-import 'package:anitube_crawler_api/src/domain/entities/EpisodeItem.dart';
+import '../../../domain/entities/parser/ihtml_parser.dart';
+import '../../../domain/exceptions/CrawlerApiException.dart';
+import '../../../domain/entities/HomePageInfo.dart';
+import '../../../external/anitube/parser/anitube_elements_name.dart';
+import '../../../external/anitube/parser/anitube_item_parser_utils.dart';
+import '../../../domain/entities/AnimeItem.dart';
+import '../../../domain/entities/EpisodeItem.dart';
 
 enum _HomePageAnimeCategory { MOST_SHOWED, MOST_RECENT, DAY_RELEASE }
 

@@ -1,6 +1,5 @@
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-
 import '../../../domain/entities/parser/ihtml_parser.dart';
 import '../../../domain/exceptions/CrawlerApiException.dart';
 import '../../../domain/entities/EpisodeDetails.dart';

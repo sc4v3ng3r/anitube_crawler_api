@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/irepository/isearch_repository.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_data_source.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
+import '../../domain/irepository/isearch_repository.dart';
+import '../../external/anitube/anitube_data_source.dart';
+import '../../external/anitube/anitube_path.dart';
 
 class SearchRepository implements ISearchRepository {
   final AnitubeDataSource searchSource;

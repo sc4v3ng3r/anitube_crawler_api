@@ -1,8 +1,8 @@
-import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
-import 'package:anitube_crawler_api/src/network/UserAgents.dart';
 import 'package:dio/dio.dart';
-import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
 import 'package:meta/meta.dart';
+import '../../infra/data_source/page_fetcher.dart';
+import '../../network/UserAgents.dart';
+import '../../domain/exceptions/CrawlerApiException.dart';
 
 class AnitubeDataSource extends IHTMLPageFetcher {
   final Dio httpClient;
@@ -22,7 +22,6 @@ class AnitubeDataSource extends IHTMLPageFetcher {
       final response = await httpClient.get(url);
       return response.data;
     } on DioError catch (error) {
-      print(error);
       throw NetworkException(message: error.response.statusMessage);
     }
   }

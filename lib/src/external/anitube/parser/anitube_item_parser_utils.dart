@@ -1,5 +1,4 @@
 import 'package:html/dom.dart';
-
 import '../../../domain/entities/Item.dart';
 import '../../../domain/exceptions/CrawlerApiException.dart';
 

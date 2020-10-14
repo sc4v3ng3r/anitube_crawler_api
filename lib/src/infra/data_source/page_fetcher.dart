@@ -1,5 +1,7 @@
+import 'package:meta/meta.dart';
+
 abstract class IHTMLPageFetcher {
   Future<String> downloadHTMLPage({
-    String url,
+    @required String url,
   });
 }

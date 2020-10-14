@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/irepository/iepisode_details_repository.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
-import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
+import '../../domain/irepository/iepisode_details_repository.dart';
+import '../../external/anitube/anitube_path.dart';
+import '../../infra/data_source/page_fetcher.dart';
 
 class EpisodeRepository implements IEpisodeDetailsRepository {
   final IHTMLPageFetcher dataSource;

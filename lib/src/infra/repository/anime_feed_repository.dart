@@ -1,7 +1,7 @@
-import 'package:anitube_crawler_api/src/domain/entities/enums.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/ianime_feed_repository.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_data_source.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
+import '../../domain/entities/enums.dart';
+import '../../domain/irepository/ianime_feed_repository.dart';
+import '../../external/anitube/anitube_data_source.dart';
+import '../../external/anitube/anitube_path.dart';
 
 class AnimeFeedRepository implements IAnimeFeedRepository {
   final AnitubeDataSource dataSource;

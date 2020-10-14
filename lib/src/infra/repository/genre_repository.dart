@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/irepository/igenre_repository.dart';
-import 'package:anitube_crawler_api/src/external/anitube/anitube_path.dart';
-import 'package:anitube_crawler_api/src/infra/data_source/page_fetcher.dart';
+import '../../domain/irepository/igenre_repository.dart';
+import '../../external/anitube/anitube_path.dart';
+import '../../infra/data_source/page_fetcher.dart';
 
 class GenreRepository implements IGenreRepository {
   final IHTMLPageFetcher pageFetcher;
