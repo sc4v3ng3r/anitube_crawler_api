@@ -8,7 +8,7 @@ abstract class IReadAnimeDetails {
 }
 
 class ReadAnimeDetails implements IReadAnimeDetails {
-  final IHTMLParser parser;
+  final IHTMLParser<AnimeDetails> parser;
   final IAnimeDetailsRepository repository;
 
   ReadAnimeDetails({@required this.parser, @required this.repository});
