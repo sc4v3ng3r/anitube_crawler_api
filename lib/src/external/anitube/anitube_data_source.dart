@@ -15,12 +15,14 @@ class AnitubeDataSource extends IHTMLPageFetcher {
   }
 
   @override
-  Future<String> downloadHTMLPage(
-      {@required String url, int pageNumber}) async {
+  Future<String> downloadHTMLPage({
+    @required String url,
+  }) async {
     try {
       final response = await httpClient.get(url);
       return response.data;
     } on DioError catch (error) {
+      print(error);
       throw NetworkException(message: error.response.statusMessage);
     }
   }
