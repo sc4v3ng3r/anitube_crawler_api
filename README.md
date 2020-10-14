@@ -10,19 +10,21 @@ This package is part of the [AnimeStore](https://github.com/sc4v3ng3r/animeapp_c
 
 ## Features
 
-- Fetch the most recents episodes
+:film_strip: Fetch the most recents episodes.
 
-- Fetch the most recents animes
+:tada: Fetch the most recents animes.
 
-- Fetch the most viewed animes
+:heart_eyes: Fetch the most viewed animes.
 
-- Fetch the daily releases
+:white_check_mark: Fetch the daily releases.
 
-- Fetch available genres
+:dizzy: Fetch available genres.
 
-- Fetch anime details with an episode list
+:ok_man: Fetch anime details info with the available episodes.
 
-- Fetch episodes details with video stream link
+:clapper: Fetch episodes details with video stream link.
+
+:mag_right: Search for animes.
 
   
 
