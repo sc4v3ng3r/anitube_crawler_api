@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  dio: ^3.0.9
+  dio: ">=2.0.0 <  4.0.0"
   html: ^0.14.0+3
   
   #test_coverage: ^0.2.0
