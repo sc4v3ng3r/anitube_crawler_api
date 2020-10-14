@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/entities/genre.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/igenre_repository.dart';
+import '../../domain/entities/genre.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/igenre_repository.dart';
 
 abstract class IReadGenres {
   IReadGenres();

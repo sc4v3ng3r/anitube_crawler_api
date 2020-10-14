@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/entities/AnimeListPageInfo.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/isearch_repository.dart';
+import '../../domain/entities/AnimeListPageInfo.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/isearch_repository.dart';
 
 abstract class IAnimeSearch {
   Future<AnimeListPageInfo> search(String search, {int pageNumber = 1});

@@ -1,6 +1,5 @@
-import 'package:anitube_crawler_api/src/domain/irepository/ihome_repository.dart';
 import 'package:meta/meta.dart';
-
+import '../../domain/irepository/ihome_repository.dart';
 import '../entities/HomePageInfo.dart';
 
 abstract class IReadHomePage {

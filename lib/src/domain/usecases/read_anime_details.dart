@@ -1,7 +1,7 @@
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/ianime_details_repository.dart';
 import 'package:meta/meta.dart';
-import 'package:anitube_crawler_api/src/domain/entities/AnimeDetails.dart';
+import '../../domain/entities/AnimeDetails.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/ianime_details_repository.dart';
 
 abstract class IReadAnimeDetails {
   Future<AnimeDetails> getAnimeDetails({@required String animeId});

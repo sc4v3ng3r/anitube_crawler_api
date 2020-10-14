@@ -1,6 +1,6 @@
-import 'package:anitube_crawler_api/src/domain/entities/EpisodeDetails.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/iepisode_details_repository.dart';
+import '../../domain/entities/EpisodeDetails.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/iepisode_details_repository.dart';
 import 'package:meta/meta.dart';
 
 abstract class IReadEpisodeDetails {

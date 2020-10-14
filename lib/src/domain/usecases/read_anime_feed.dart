@@ -1,7 +1,7 @@
-import 'package:anitube_crawler_api/src/domain/entities/AnimeListPageInfo.dart';
-import 'package:anitube_crawler_api/src/domain/entities/enums.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-import 'package:anitube_crawler_api/src/domain/irepository/ianime_feed_repository.dart';
+import '../../domain/entities/AnimeListPageInfo.dart';
+import '../../domain/entities/enums.dart';
+import '../../domain/entities/parser/ihtml_parser.dart';
+import '../../domain/irepository/ianime_feed_repository.dart';
 import 'package:meta/meta.dart';
 
 abstract class IReadAnimeFeed {
