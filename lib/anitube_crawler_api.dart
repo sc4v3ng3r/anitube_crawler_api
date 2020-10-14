@@ -1,180 +1,124 @@
-// library anitube_crawler_api;
+library anitube_crawler_api;
 
-// import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
-// import 'package:anitube_crawler_api/src/network/UserAgents.dart';
-// import 'package:dio/dio.dart';
-// import 'package:html/dom.dart';
-// import 'package:html/parser.dart';
+import 'package:dio/dio.dart';
 
-// // part 'src/network/AnitubePath.dart';
-// // part 'src/network/HomePageFetcher.dart';
-// // part 'src/network/PageFetcher.dart';
-// // part 'src/network/GenrePageFetcher.dart';
-// // part 'src/network/AnimeListPageFetcher.dart';
-// // part 'src/network/AnimeDetailsPageFetcher.dart';
-// // part 'src/network/EpisodeDetailsPageFetcher.dart';
-// // part 'src/network/EpisodeVideoPageFetcher.dart';
+import './src/domain/entities/enums.dart';
+import './src/domain/entities/genre.dart';
+import './src/domain/usecases/anime_search.dart';
+import './src/domain/usecases/read_anime_details.dart';
+import './src/domain/usecases/read_anime_feed.dart';
+import './src/domain/usecases/read_episode_details.dart';
+import './src/domain/usecases/read_genres.dart';
+import './src/domain/usecases/read_home_page.dart';
+import './src/external/anitube/anitube_data_source.dart';
+import './src/external/anitube/parser/anime_list_page_parser.dart';
+import './src/external/anitube/parser/anitube_anime_details_parser.dart';
+import './src/external/anitube/parser/anitube_episode_details_page_parser.dart';
+import './src/external/anitube/parser/anitube_genres_parser.dart';
+import './src/external/anitube/parser/anitube_home_page_parser.dart';
+import './src/infra/repository/anime_details_repository.dart';
+import './src/infra/repository/anime_feed_repository.dart';
+import './src/infra/repository/episode_details_repository.dart';
+import './src/infra/repository/genre_repository.dart';
+import './src/infra/repository/home_page_repository.dart';
+import './src/infra/repository/search_repository.dart';
+import './src/domain/entities/AnimeDetails.dart';
+import './src/domain/entities/AnimeListPageInfo.dart';
+import './src/domain/entities/EpisodeDetails.dart';
+import './src/domain/entities/HomePageInfo.dart';
 
-// // part 'src/parser/HomePageParser.dart';
-// // part 'src/parser/GenrePageParser.dart';
-// // part 'src/parser/ItemParser.dart';
-// // part 'src/parser/AnimeListPageParser.dart';
-// // part 'src/parser/AnimeDetailsPageParser.dart';
-// // part 'src/parser/EpisodeDetailsPageParser.dart';
-// // part 'src/parser/VideoPageParser.dart';
+export 'src/domain/entities/AnimeDetails.dart';
+export 'src/domain/entities/EpisodeDetails.dart';
+export 'src/domain/entities/AnimeItem.dart';
+export 'src/domain/entities/EpisodeItem.dart';
+export 'src/domain/entities/HomePageInfo.dart';
+export 'src/domain/entities/AnimeListPageInfo.dart';
+export 'src/domain/entities/genre.dart';
+export 'src/domain/entities/enums.dart';
+export 'src/domain/exceptions/CrawlerApiException.dart';
 
-// // part 'src/domain/entities/AnimeItem.dart';
-// // part 'src/domain/entities/HomePageInfo.dart';
-// // part 'src/domain/entities/AnimeListPageInfo.dart';
-// // part 'src/domain/entities/EpisodeItem.dart';
-// // part 'src/domain/entities/Item.dart';
-// // part 'src/domain/entities/AnimeDetails.dart';
-// // part 'src/domain/entities/EpisodeDetails.dart';
-// // part 'src/domain/exceptions/CrawlerApiException.dart';
-// // part 'src/external/anitube/parser/anitube_genres_parser.dart';
-// // part 'src/external/anitube/parser/anitube_anime_details_parser.dart';
+///
+/// AniTubeApi is a API which allows you fetch data from
+/// animetube.site brazilian anime website.
+///
+class AniTubeApi {
+  final Dio dioClient;
 
-// ///
-// /// AniTubeApi is a API which allows you fetch data from
-// /// animetube.site brazilian anime website.
-// ///
-// class AniTubeApi {
-//   static final HomePageFetcher _homePageFetcher = HomePageFetcher();
-//   static final HomePageParser _homePageParser = HomePageParser();
+  ReadHomePage _homePageModule;
+  ReadGenres _genresModule;
+  ReadEpisodeDetails _episodeDetailsModule;
+  ReadAnimeFeed _feedModule;
+  ReadAnimeDetails _animeDetailsModule;
+  AnimeSearch _searchModule;
+  final AnitubeDataSource _dataSource;
 
-//   static final GenrePageFetcher _genrePageFetcher = GenrePageFetcher();
-//   static final GenrePageParser _genrePageParser = GenrePageParser();
+  AniTubeApi(this.dioClient)
+      : assert(dioClient != null),
+        _dataSource = AnitubeDataSource(dioClient) {
+    _homePageModule = ReadHomePage(
+        parser: AnitubeHomePageParser(),
+        homeRepository: HomePageRepository(_dataSource));
 
-//   static final AnimeListPageFetcher _animeListPageFetcher =
-//       AnimeListPageFetcher();
-//   static final AnimeListPageParser _animeListPageParser = AnimeListPageParser();
+    _genresModule = ReadGenres(
+        parser: AnitubeGenreParser(), repository: GenreRepository(_dataSource));
 
-//   static final AnimeDetailsPageFetcher _animeDetailsPageFetcher =
-//       AnimeDetailsPageFetcher();
+    _episodeDetailsModule = ReadEpisodeDetails(
+        parser: AnitubeEpisodeDetailsPageParser(),
+        repository: EpisodeRepository(_dataSource));
 
-//   static final AnimeDetailsPageParser _animeDetailsPageParser =
-//       AnimeDetailsPageParser();
+    _feedModule = ReadAnimeFeed(
+        parser: AnimeListPageParser(isSearch: false),
+        feedRepository: AnimeFeedRepository(_dataSource));
 
-//   static final EpisodeDetailsPageFetcher _episodeDetailsPageFetcher =
-//       EpisodeDetailsPageFetcher();
+    _animeDetailsModule = ReadAnimeDetails(
+        parser: AnitubeAnimeDetailsParser(),
+        repository: AnimeDetailsRepository(dataSource: _dataSource));
 
-//   static final EpisodeDetailsPageParser _episodeDetailsPageParser =
-//       EpisodeDetailsPageParser();
+    _searchModule = AnimeSearch(
+        AnimeListPageParser(isSearch: true), SearchRepository(_dataSource));
+  }
 
-//   // final EpisodeVideoPageFetcher _videoPageFetcher = EpisodeVideoPageFetcher();
+  /// This method fetches a list of all genres available
+  /// animetube.site website.
+  Future<List<Genre>> getGenresAvailable() async => _genresModule.getGenres();
 
-//   /// This method fetch the animetube.site website home page with all
-//   /// info available. It returns a HomePageInfo object with the data
-//   /// and info available on website home page .
-//   ///
-//   /// [timeout] : The request timeout limit in ms.
-//   Future<HomePageInfo> getHomePageData(
-//       {int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     String page = await _homePageFetcher.fetchHomePage(timeout: timeout);
+  /// This method fetch the animetube.site website home page with all
+  /// info available. It returns a HomePageInfo object with the data
+  /// and info available on website home page.
+  Future<HomePageInfo> getHomePageData() => _homePageModule.getHomePage();
 
-//     var latestEpisodes = _homePageParser
-//         .extractLatestEpisodes(page)
-//         .map((json) => EpisodeItem.fromJson(json))
-//         .toList();
+  /// This method returns the data available on anime list page
+  /// from animetube.site website. It returns an AnimeListPageInfo object
+  /// instance will data and info on that page.
+  /// [pageNumber] : The animes feed page number.
+  /// with specified letter. The default value is an empty string.
+  /// [ccType] : The closed caption type of the animes to be returned. Can be DUBBED or LEGENDED. The
+  /// default values is LEGEND.
+  Future<AnimeListPageInfo> getAnimeListPageData({
+    int pageNumber = 1,
+    AnimeCC ccType = AnimeCC.LEGENDED,
+  }) =>
+      _feedModule.getAnimesFeed(ccType: ccType, pageNumber: pageNumber);
 
-//     var mostRecentAnimesList = _homePageParser
-//         .extractRecentAnimes(page)
-//         .map((json) => AnimeItem.fromJson(json))
-//         .toList();
+  /// This methods returns details about an specified anime.
+  /// It returns a AnimeDetails object instance.
+  /// [animeId] : The anime id to get details info.
+  Future<AnimeDetails> getAnimeDetails(String animeId) =>
+      _animeDetailsModule.getAnimeDetails(animeId: animeId);
 
-//     var mostShowedAnimes = _homePageParser
-//         .extractMostShowedAnimes(page)
-//         .map((json) => AnimeItem.fromJson(json))
-//         .toList();
+  /// This methods returns details about an specified Episode like
+  /// streaming url.
+  /// It returns a EpisodeDetails object instance.
+  /// [episodeId] : The episode id to get details info.
+  Future<EpisodeDetails> getEpisodeDetails(
+    String episodeId,
+  ) =>
+      _episodeDetailsModule.getEpisodeDetails(episodeId);
 
-//     var dayReleases = _homePageParser
-//         .extractDayRelease(page)
-//         .map((json) => AnimeItem.fromJson(json))
-//         .toList();
-
-//     return HomePageInfo(
-//         mostRecentAnimesList, mostShowedAnimes, latestEpisodes, dayReleases);
-//   }
-
-//   /// This method fetches a list of all genres available
-//   /// animetube.site website.
-//   Future<List<String>> getGenresAvailable(
-//       {int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     String page = await _genrePageFetcher.getGenrePage(timeout: timeout);
-
-//     return _genrePageParser.getGenresAvailable(page);
-//   }
-
-//   /// This method returns the data available on anime list page
-//   /// from animetube.site website. It returns an AnimeListPageInfo object
-//   /// instance will data and info on that page.
-//   /// [pageNumber] : The number of animes page.
-//   /// [startWith] : A query param to returns only animes that start
-//   /// with specified letter. The default value is an empty string.
-//   /// [animeType] : The type of animes to be returned. Can be DUBBED or LEGEND. The
-//   /// default values is LEGEND.
-//   /// [timeout] : The request timeout limit in ms.
-//   Future<AnimeListPageInfo> getAnimeListPageData(
-//       {int pageNumber = 1,
-//       String startWith = '',
-//       AnimeType animeType = AnimeType.LEGEND,
-//       int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     var page = await _animeListPageFetcher.fetchAnimeListPage(
-//       animeType: animeType,
-//       startWith: startWith,
-//       timeout: timeout,
-//       pageNumber: pageNumber,
-//     );
-
-//     Map<String, dynamic> pageInfoMap =
-//         _animeListPageParser.parseAnimeListPage(page);
-//     return AnimeListPageInfo.fromJson(pageInfoMap);
-//   }
-
-//   /// This methods returns details about an specified anime.
-//   /// It returns a AnimeDetails object instance.
-//   /// [animeId] : The anime id to get details info.
-//   Future<AnimeDetails> getAnimeDetails(String animeId,
-//       {int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     String page = await _animeDetailsPageFetcher.getAnimeDetailsPage(animeId,
-//         timeout: timeout);
-
-//     var detailsData = _animeDetailsPageParser.parseAnimeDetailsPage(page);
-//     return AnimeDetails.fromJson(detailsData);
-//   }
-
-//   /// This methods returns details about an specified Episode like
-//   /// streaming url.
-//   /// It returns a EpisodeDetails object instance.
-//   /// [episodeId] : The episode id to get details info.
-//   Future<EpisodeDetails> getEpisodeDetails(String episodeId,
-//       {int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     String page = await _episodeDetailsPageFetcher.getEpisodePage(episodeId,
-//         timeout: timeout);
-
-//     var jsonData = _episodeDetailsPageParser.parseEpisodeDetailsPage(page);
-
-//     // var videoPage = await _videoPageFetcher
-//     //     .getVideoPage(jsonData[EpisodeDetails.STREAM_URL], timeout: timeout);
-
-//     // jsonData[EpisodeDetails.STREAM_URL] =
-//     //     VideoPageParser.getStreamUrl(videoPage);
-
-//     return EpisodeDetails.fromJson(jsonData);
-//   }
-
-//   /// This method do the search by animes matching [query] param.
-//   /// Query param can be anime name, part of the name or a genre name.
-//   /// [query] The search query. Can't be null.
-//   /// [timeout] The time out limit on miliseconds. The default time is 8 seconds
-//   /// or 8000 miliseconds.
-//   /// [pageNumber] The anitube site page number to load.
-//   Future<AnimeListPageInfo> search(String query,
-//       {int pageNumber = 1, int timeout = PageFetcher.TIMEOUT_MS}) async {
-//     String page = await _animeListPageFetcher.search(query,
-//         pageNumber: pageNumber, timeout: timeout);
-
-//     var data = _animeListPageParser.parseAnimeListPage(page, isSearch: true);
-//     return AnimeListPageInfo.fromJson(data);
-//   }
-// }
+  /// This method do the search by animes matching [query] param.
+  /// Query param can be anime name, part of the name or a genre name.
+  /// [query] The search query. Can't be null.
+  /// [pageNumber] The anitube site page number to load.
+  Future<AnimeListPageInfo> search(String query, {int pageNumber = 1}) =>
+      _searchModule.search(query, pageNumber: pageNumber);
+}
