@@ -1,5 +1,3 @@
-library anitube_crawler_api;
-
 import 'package:dio/dio.dart';
 import './domain/entities/enums.dart';
 import './domain/entities/genre.dart';
@@ -95,9 +93,11 @@ class AniTubeApi {
   /// default values is LEGEND.
   Future<AnimeListPageInfo> getAnimeListPageData({
     int pageNumber = 1,
+    String startsWith,
     AnimeCC ccType = AnimeCC.LEGENDED,
   }) =>
-      _feedModule.getAnimesFeed(ccType: ccType, pageNumber: pageNumber);
+      _feedModule.getAnimesFeed(
+          ccType: ccType, startsWith: startsWith, pageNumber: pageNumber);
 
   /// This methods returns details about an specified anime.
   /// It returns a AnimeDetails object instance.

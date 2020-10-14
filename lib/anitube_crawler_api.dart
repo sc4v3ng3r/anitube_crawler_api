@@ -1,3 +1,5 @@
+library anitube_crawler_api;
+
 export 'src/anitube_crawler_api.dart'
     show
         AniTubeApi,

@@ -5,7 +5,8 @@ import '../../domain/irepository/ianime_feed_repository.dart';
 import 'package:meta/meta.dart';
 
 abstract class IReadAnimeFeed {
-  Future<AnimeListPageInfo> getAnimesFeed({int pageNumber = 1, AnimeCC ccType});
+  Future<AnimeListPageInfo> getAnimesFeed(
+      {int pageNumber = 1, String startsWith, AnimeCC ccType});
 }
 
 class ReadAnimeFeed implements IReadAnimeFeed {
@@ -17,8 +18,11 @@ class ReadAnimeFeed implements IReadAnimeFeed {
 
   @override
   Future<AnimeListPageInfo> getAnimesFeed(
-      {int pageNumber = 1, AnimeCC ccType = AnimeCC.LEGENDED}) async {
+      {int pageNumber = 1,
+      String startsWith,
+      AnimeCC ccType = AnimeCC.LEGENDED}) async {
     final htmlPage = await feedRepository.getAnimesList(
+        startsWith: startsWith,
         pageNumber: pageNumber <= 0 ? 1 : pageNumber,
         ccType: ccType ?? AnimeCC.LEGENDED);
     return parser.parseHTML(htmlPage);
