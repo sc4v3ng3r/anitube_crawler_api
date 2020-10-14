@@ -1,4 +1,4 @@
-part of anitube_crawler_api;
+//part of anitube_crawler_api;
 
 /// This class holds read only info about an episode. All
 /// the information are provided by animetube.site brazilian website

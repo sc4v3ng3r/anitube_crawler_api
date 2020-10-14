@@ -1,4 +1,9 @@
-// part of anitube_crawler_api;
+// // part of anitube_crawler_api;
+
+// import 'package:anitube_crawler_api/src/domain/entities/EpisodeDetails.dart';
+// import 'package:anitube_crawler_api/src/domain/exceptions/CrawlerApiException.dart';
+// import 'package:html/dom.dart';
+// import 'package:html/parser.dart';
 
 // class EpisodeDetailsPageParser {
 //   Map<String, dynamic> parseEpisodeDetailsPage(String page) {
