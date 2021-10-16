@@ -6,7 +6,7 @@ import '../../../domain/entities/EpisodeDetails.dart';
 
 class AnitubeEpisodeDetailsPageParser extends IHTMLParser<EpisodeDetails> {
   @override
-  EpisodeDetails parseHTML(String html) {
+  EpisodeDetails parseHTML(String? html) {
     if (html == null)
       throw ParserException(
           message: "AnitubeEpisodeDetailsPageParser html is null");
@@ -37,7 +37,7 @@ class AnitubeEpisodeDetailsPageParser extends IHTMLParser<EpisodeDetails> {
         videoUrl = body
                 .getElementsByClassName(
                     _EpisodePageNames.ACTION_DOWNLOAD_CLASS)[0]
-                .attributes['data-download'] +
+                .attributes['data-download']! +
             '&type=1';
       } else {
         // grant only "https://domainlink" string format.
@@ -50,8 +50,9 @@ class AnitubeEpisodeDetailsPageParser extends IHTMLParser<EpisodeDetails> {
           body.getElementsByClassName(_EpisodePageNames.NEXT_PREV_CONTAINER)[0];
 
       var previous = episodesContainer.children[0];
-      var animeId =
-          episodesContainer.children[1].attributes['href'].split('/')[3].trim();
+      var animeId = episodesContainer.children[1].attributes['href']!
+          .split('/')[3]
+          .trim();
       var nextElement = html.getElementById(_EpisodePageNames.ID_NEXT_EPISODE);
 
       var description = _extractDescription(body);
@@ -75,23 +76,22 @@ class AnitubeEpisodeDetailsPageParser extends IHTMLParser<EpisodeDetails> {
   // String _extractVideoPageUrl(Element element) =>
   //     element.getElementsByTagName('a')[0].attributes['href'];
 
-  String _extractEpisodeId(Element element) {
-    if (element.attributes['class'] == _EpisodePageNames.LINK_DISABLE_CLASS) {
+  String _extractEpisodeId(Element? element) {
+    if (element!.attributes['class'] == _EpisodePageNames.LINK_DISABLE_CLASS) {
       return '';
     }
-    return element.attributes['href'].split('/')[3].trim();
+    return element.attributes['href']!.split('/')[3].trim();
   }
 
   String _extractDescription(Element body) {
     return body
-            .getElementsByClassName(_EpisodePageNames.DESCRIPTION_CONTAINER)[0]
-            ?.children[1]
-            ?.text ??
-        '';
+        .getElementsByClassName(_EpisodePageNames.DESCRIPTION_CONTAINER)[0]
+        .children[1]
+        .text;
   }
 
   String _extractVideoUrlFromJScode(Document html) {
-    var jsDiv = html.getElementById('video').getElementsByTagName('script')[5];
+    var jsDiv = html.getElementById('video')!.getElementsByTagName('script')[5];
 
     const URL_REGEXP =
         r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._,\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_,\+.~#?&\/=]*)?";

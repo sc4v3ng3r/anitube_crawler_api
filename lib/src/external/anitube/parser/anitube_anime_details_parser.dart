@@ -8,7 +8,7 @@ import '../anitube_path.dart';
 
 class AnitubeAnimeDetailsParser implements IHTMLParser<AnimeDetails> {
   @override
-  parseHTML(String html) {
+  parseHTML(String? html) {
     if (html == null) throw ParserException(message: "Null html data");
 
     try {
@@ -18,7 +18,7 @@ class AnitubeAnimeDetailsParser implements IHTMLParser<AnimeDetails> {
       var animeTitle = _parseAnimeTitle(body);
       var imageUrl = doc
           .getElementById(_AnimeDetailsPageNames.ID_ANIME_COVER)
-          .children[0]
+          ?.children[0]
           .attributes['src'];
 
       var resume =
@@ -37,12 +37,12 @@ class AnitubeAnimeDetailsParser implements IHTMLParser<AnimeDetails> {
       // The first container is the episode containers
       // some titles has OVAS and MOVIES containers too.
       // but for now let's get only the episodes.
-      if (container != null && container.isNotEmpty) {
+      if (container.isNotEmpty) {
         episodesItemList =
             container[0].children.map<Map<String, dynamic>>((anchor) {
-          var id = anchor.attributes['href'].split(AnitubePath.BASE_PATH).last;
+          var id = anchor.attributes['href']?.split(AnitubePath.BASE_PATH).last;
           return {
-            Item.ID: id.substring(0, id.length - 1),
+            Item.ID: id?.substring(0, id.length - 1),
             Item.TITLE: anchor.attributes['title'],
             Item.PAGE_URL: anchor.attributes['href'],
             Item.IMAGE_URL: imageUrl,
@@ -54,7 +54,7 @@ class AnitubeAnimeDetailsParser implements IHTMLParser<AnimeDetails> {
       return AnimeDetails.fromJson({
         AnimeDetails.TITLE: animeTitle,
         AnimeDetails.IMAGE_URL: imageUrl,
-        AnimeDetails.DESCRIPTION: resume ?? "",
+        AnimeDetails.DESCRIPTION: resume,
         AnimeDetails.EPISODES_LIST: episodesItemList,
         AnimeDetails.EPISODES_NUMBER: episodesItemList?.length.toString() ?? "",
         AnimeDetails.FORMAT: infoMap[AnimeDetails.FORMAT] ?? "",

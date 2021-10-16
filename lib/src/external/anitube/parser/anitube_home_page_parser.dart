@@ -12,7 +12,7 @@ enum _HomePageAnimeCategory { MOST_SHOWED, MOST_RECENT, DAY_RELEASE }
 
 class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
   @override
-  HomePageInfo parseHTML(String html) {
+  HomePageInfo parseHTML(String? html) {
     if (html == null)
       throw ParserException(message: "AnitubeHomePageParser HTML is null");
 
@@ -34,7 +34,7 @@ class AnitubeHomePageParser implements IHTMLParser<HomePageInfo> {
     var dataList = <Map<String, dynamic>>[];
     Document pageDocument;
 
-    if (page != null || page.isNotEmpty) {
+    if (page.isNotEmpty) {
       try {
         pageDocument = parse(page);
         var body = pageDocument.getElementsByTagName('body')[0];

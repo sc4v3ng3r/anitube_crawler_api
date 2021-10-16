@@ -1,3 +1,6 @@
+## [1.0.0] 16/10/2021
+*  **Breaking change:** Null safety support!
+
 ## [0.3.0] 14/10/2020
 
 *  **Breaking change:** Now *dio* http client is a dependency. https://pub.dev/packages/dio. Check README and example code file about API usage changes. 
