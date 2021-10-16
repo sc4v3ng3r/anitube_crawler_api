@@ -5,7 +5,7 @@ import 'package:html/parser.dart';
 
 class AnitubeGenreParser implements IHTMLParser<List<Genre>> {
   @override
-  List<Genre> parseHTML(String html) {
+  List<Genre> parseHTML(String? html) {
     if (html == null) throw ParserException(message: "null html data");
     try {
       var list = <Genre>[];

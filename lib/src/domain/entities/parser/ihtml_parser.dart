@@ -1,3 +1,3 @@
 abstract class IHTMLParser<T> {
-  T parseHTML(final String html);
+  T parseHTML(final String? html);
 }

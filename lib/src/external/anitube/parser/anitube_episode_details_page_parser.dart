@@ -6,7 +6,10 @@ import '../../../domain/entities/EpisodeDetails.dart';
 
 class AnitubeEpisodeDetailsPageParser extends IHTMLParser<EpisodeDetails> {
   @override
-  EpisodeDetails parseHTML(String html) {
+  EpisodeDetails parseHTML(String? html) {
+    if (html == null)
+      throw ParserException(
+          message: "AnitubeEpisodeDetailsPageParser html is null");
     return EpisodeDetails.fromJson(_parseEpisodeDetailsPage(html));
   }
 
