@@ -10,8 +10,8 @@ class AnimeFeedRepository implements IAnimeFeedRepository {
   @override
   Future<String> getAnimesList({
     int pageNumber = 1,
-    String startsWith,
-    AnimeCC ccType,
+    String? startsWith,
+    AnimeCC? ccType,
   }) async {
     int number = (pageNumber <= 0) ? 1 : pageNumber;
 

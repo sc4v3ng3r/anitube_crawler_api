@@ -7,22 +7,23 @@ enum ErrorType {
 }
 
 abstract class CrawlerApiException implements Exception {
-  final String message;
+  final String? message;
   final ErrorType errorType;
 
   CrawlerApiException(this.errorType, {this.message});
 }
 
 class TimeoutException extends CrawlerApiException {
-  TimeoutException({String message})
+  TimeoutException({String? message})
       : super(ErrorType.TIMEOUT, message: message);
 }
 
 class NetworkException extends CrawlerApiException {
-  NetworkException({String message})
+  NetworkException({String? message})
       : super(ErrorType.NETWORK, message: message);
 }
 
 class ParserException extends CrawlerApiException {
-  ParserException({String message}) : super(ErrorType.PARSER, message: message);
+  ParserException({String? message})
+      : super(ErrorType.PARSER, message: message);
 }

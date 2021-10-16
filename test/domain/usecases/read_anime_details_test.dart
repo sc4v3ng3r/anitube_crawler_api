@@ -13,11 +13,10 @@ class MockedRepository extends Mock implements IAnimeDetailsRepository {}
 class MockedParser extends Mock implements IHTMLParser {}
 
 main() {
-  ReadAnimeDetails readAnimeDetails;
-  MockedRepository repository;
-  IHTMLParser parser;
-
   group("Read anime details usecase test group", () {
+    ReadAnimeDetails readAnimeDetails;
+    MockedRepository repository;
+    IHTMLParser<AnimeDetails> parser;
     String animeId;
 
     setUp(() {
@@ -28,12 +27,6 @@ main() {
       animeId = "1234";
     });
 
-    tearDown(() {
-      readAnimeDetails = null;
-      repository = null;
-      parser = null;
-    });
-
     test(
       "Read anime details with success",
       () async {
@@ -42,7 +35,7 @@ main() {
 
         final details =
             await readAnimeDetails.getAnimeDetails(animeId: animeId);
-        expect(details != null, true);
+        expect(details, true);
         expect(details, isA<AnimeDetails>());
       },
     );

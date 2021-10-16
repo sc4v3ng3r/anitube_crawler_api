@@ -1,7 +1,6 @@
 import '../../domain/entities/parser/ihtml_parser.dart';
 import '../../domain/irepository/ihome_repository.dart';
 import '../entities/HomePageInfo.dart';
-import 'package:meta/meta.dart';
 
 abstract class IReadHomePage {
   Future<HomePageInfo> getHomePage();
@@ -10,8 +9,7 @@ abstract class IReadHomePage {
 class ReadHomePage implements IReadHomePage {
   final IHomeRepository homeRepository;
   final IHTMLParser<HomePageInfo> parser;
-  ReadHomePage({@required this.parser, @required this.homeRepository})
-      : assert(homeRepository != null || parser != null);
+  ReadHomePage({required this.parser, required this.homeRepository});
 
   @override
   Future<HomePageInfo> getHomePage() async {

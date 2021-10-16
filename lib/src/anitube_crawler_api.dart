@@ -41,17 +41,15 @@ export 'domain/exceptions/CrawlerApiException.dart';
 class AniTubeApi {
   final Dio dioClient;
 
-  ReadHomePage _homePageModule;
-  ReadGenres _genresModule;
-  ReadEpisodeDetails _episodeDetailsModule;
-  ReadAnimeFeed _feedModule;
-  ReadAnimeDetails _animeDetailsModule;
-  AnimeSearch _searchModule;
+  late ReadHomePage _homePageModule;
+  late ReadGenres _genresModule;
+  late ReadEpisodeDetails _episodeDetailsModule;
+  late ReadAnimeFeed _feedModule;
+  late ReadAnimeDetails _animeDetailsModule;
+  late AnimeSearch _searchModule;
   final AnitubeDataSource _dataSource;
 
-  AniTubeApi(this.dioClient)
-      : assert(dioClient != null),
-        _dataSource = AnitubeDataSource(dioClient) {
+  AniTubeApi(this.dioClient) : _dataSource = AnitubeDataSource(dioClient) {
     _homePageModule = ReadHomePage(
         parser: AnitubeHomePageParser(),
         homeRepository: HomePageRepository(_dataSource));
@@ -93,7 +91,7 @@ class AniTubeApi {
   /// default values is LEGEND.
   Future<AnimeListPageInfo> getAnimeListPageData({
     int pageNumber = 1,
-    String startsWith,
+    String? startsWith,
     AnimeCC ccType = AnimeCC.LEGENDED,
   }) =>
       _feedModule.getAnimesFeed(

@@ -1,6 +1,5 @@
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:meta/meta.dart';
 import '../../../domain/entities/AnimeListPageInfo.dart';
 import '../../../domain/exceptions/CrawlerApiException.dart';
 import '../../../domain/entities/parser/ihtml_parser.dart';
@@ -10,10 +9,11 @@ import '../../../external/anitube/parser/anitube_item_parser_utils.dart';
 class AnimeListPageParser implements IHTMLParser<AnimeListPageInfo> {
   final bool isSearch;
 
-  AnimeListPageParser({@required this.isSearch}) : assert(isSearch != null);
+  AnimeListPageParser({required this.isSearch});
+
   @override
   AnimeListPageInfo parseHTML(
-    String html,
+    String? html,
   ) {
     if (html == null)
       throw ParserException(message: "AnimeListPageParser html is null");
@@ -95,7 +95,7 @@ class AnimeListPageParser implements IHTMLParser<AnimeListPageInfo> {
       var elementList =
           body.getElementsByClassName(_AnimeListPageClasses.PAGINATION);
 
-      if (elementList != null || elementList.isNotEmpty) {
+      if (elementList.isNotEmpty) {
         if (elementList.length > 0) {
           var paginationDiv = elementList[0];
 
@@ -107,8 +107,10 @@ class AnimeListPageParser implements IHTMLParser<AnimeListPageInfo> {
 
           for (var i = 0; i < paginationDiv.children.length; i++) {
             var element = paginationDiv.children[i];
+
             if (element.attributes['class']
-                .contains(_AnimeListPageClasses.NEXT)) {
+                    ?.contains(_AnimeListPageClasses.NEXT) ??
+                false) {
               totalPageNumber = paginationDiv.children[i - 1].text;
             }
           }
