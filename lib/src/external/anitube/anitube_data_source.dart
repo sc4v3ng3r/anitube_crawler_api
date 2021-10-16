@@ -1,17 +1,11 @@
 import 'package:dio/dio.dart';
 import '../../infra/data_source/page_fetcher.dart';
 import '../../domain/exceptions/CrawlerApiException.dart';
-import '../../infra/data_source/UserAgents.dart';
 
 class AnitubeDataSource extends IHTMLPageFetcher {
   final Dio httpClient;
 
-  AnitubeDataSource(this.httpClient, {String? url}) {
-    httpClient.interceptors
-        .add(InterceptorsWrapper(onRequest: (requestOptions, handler) {
-      requestOptions.headers['user-agent'] = UserAgents.generateAgent();
-    }));
-  }
+  AnitubeDataSource(this.httpClient, {String? url});
 
   @override
   Future<String> downloadHTMLPage({
