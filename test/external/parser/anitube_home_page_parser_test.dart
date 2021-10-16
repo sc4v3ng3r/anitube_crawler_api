@@ -5,20 +5,10 @@ import 'package:anitube_crawler_api/src/domain/entities/HomePageInfo.dart';
 import '../../test_resources/home_page.dart';
 
 void main() {
-  AnitubeHomePageParser parser;
-
-  setUp(() {
-    parser = AnitubeHomePageParser();
-  });
-
+  AnitubeHomePageParser parser = AnitubeHomePageParser();
   test("Home page parser test success", () {
     final homePage = parser.parseHTML(home_page_html);
     expect(homePage, isA<HomePageInfo>());
-    expect(homePage != null, true);
-  });
-
-  tearDown(() {
-    parser = null;
   });
 
   test("Home page parser failure", () {

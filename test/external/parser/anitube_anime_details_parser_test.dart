@@ -4,19 +4,16 @@ import 'package:test/test.dart';
 import '../../test_resources/anime_details_page.dart';
 
 main() {
-  AnitubeAnimeDetailsParser? parser;
-  setUp(() {
-    parser = AnitubeAnimeDetailsParser();
-  });
+  AnitubeAnimeDetailsParser parser = AnitubeAnimeDetailsParser();
 
   group("AnitubeAnimeDetailsParser test", () {
     test("AnituneAnimeDetails page parser with success", () {
-      final details = parser!.parseHTML(anime_details_page_html);
+      final details = parser.parseHTML(anime_details_page_html);
       expect(details, isA<AnimeDetails>());
     });
 
     test("AnituneAnimeDetails page parser with fail", () {
-      expect(() => parser!.parseHTML(null), throwsException);
+      expect(() => parser.parseHTML(null), throwsException);
     });
   });
 }

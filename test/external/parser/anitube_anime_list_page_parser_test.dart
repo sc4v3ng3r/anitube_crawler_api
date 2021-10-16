@@ -6,23 +6,14 @@ import 'package:test/test.dart';
 import '../../test_resources/anime_list_page.dart';
 
 main() {
-  AnimeListPageParser parser;
-
-  setUp(() {
-    parser = AnimeListPageParser(isSearch: true);
-  });
-
-  tearDown(() {
-    parser = null;
-  });
+  AnimeListPageParser parser = AnimeListPageParser(isSearch: true);
 
   test("AnimeListPageParser parsing success test", () {
     final data = parser.parseHTML(anime_list_page);
     expect(data, isA<AnimeListPageInfo>());
-    expect(data.animes != null, true);
-    expect(data.animes.length > 0, true);
-    expect(data.pageNumber != null, true);
-    expect(data.maxPageNumber != null, true);
+    expect(data.animes.isNotEmpty, true);
+    expect(data.pageNumber.isNotEmpty, true);
+    expect(data.maxPageNumber.isNotEmpty, true);
   });
 
   test("AnimeListPageParser parsing faliure with ParserException", () {

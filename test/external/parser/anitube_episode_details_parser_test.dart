@@ -5,15 +5,12 @@ import 'package:test/test.dart';
 import '../../test_resources/episode_details_page.dart';
 
 main() {
-  AnitubeEpisodeDetailsPageParser parser;
-
-  setUp(() => parser = AnitubeEpisodeDetailsPageParser());
-  tearDown(() => parser = null);
+  AnitubeEpisodeDetailsPageParser parser = AnitubeEpisodeDetailsPageParser();
 
   test("AnitubeEpisodeDetailsPageParser parser success", () {
     final details = parser.parseHTML(episode_details_page);
     expect(details, isA<EpisodeDetails>());
-    expect(details.streamingUrl != null, true);
+    expect(details.streamingUrl.isNotEmpty, true);
   });
 
   test("AnitubeEpisodeDetailsPageParser parser failure", () {

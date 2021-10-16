@@ -7,11 +7,7 @@ import 'package:test/test.dart';
 import '../../test_resources/genres_page.dart';
 
 main() {
-  IHTMLParser<List<Genre>> parser;
-
-  setUp(() {
-    parser = AnitubeGenreParser();
-  });
+  IHTMLParser<List<Genre>> parser = AnitubeGenreParser();
 
   group("AnitubeGenreParser test group", () {
     test("Running anitube_genre_parser with success", () async {

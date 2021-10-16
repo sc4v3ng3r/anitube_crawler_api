@@ -1,11 +1,5 @@
-import 'dart:io';
-import 'dart:math';
-import 'package:anitube_crawler_api/src/domain/entities/genre.dart';
-import 'package:anitube_crawler_api/src/domain/entities/parser/ihtml_parser.dart';
 import 'package:anitube_crawler_api/src/domain/irepository/igenre_repository.dart';
-import 'package:anitube_crawler_api/src/domain/usecases/read_genres.dart';
-import 'package:anitube_crawler_api/src/external/anitube/parser/anitube_genres_parser.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class MockedRepository extends Mock implements IGenreRepository {}
