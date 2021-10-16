@@ -1,3 +1,6 @@
+## [1.0.1] 16/10/2021
+* **bugfix** Removing interceptors from internal dio client.
+
 ## [1.0.0] 16/10/2021
 *  **Breaking change:** Null safety support!
 
